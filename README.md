@@ -10,7 +10,7 @@ yarn add @atb-as/utils
 
 ## Local development
 
-In order to test local changes to the package locally, you can use yalc to link the local package. This is an alternative to `yarn link`, that works better with React Native / metro.
+In order to test local changes to the package locally, you can use [yalc](https://github.com/wclr/yalc). This is an alternative to `yarn link`, that works better with React Native / metro.
 
 1. Run `npm i yalc -g` to install yalc on your machine.
 2. Run `yarn build && yalc push` to set up a local link to this package.
