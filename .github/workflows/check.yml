@@ -1,0 +1,23 @@
+name: TypeScript Check, Lint & Test
+on:
+  workflow_dispatch:
+  push:
+
+jobs:
+  check:
+    name: TypeScript Check All
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: install node v20
+        uses: actions/setup-node@v1
+        with:
+          node-version: 20
+      - uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+      - name: yarn install
+        run: yarn install --frozen-lockfile
+      - name: check-all
+        run: yarn check-all
