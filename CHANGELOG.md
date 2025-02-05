@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/AtB-AS/utils/compare/v1.0.0...v1.0.1) (2025-02-05)
+
+
+### Build System
+
+* publish as public package ([f7c23a0](https://github.com/AtB-AS/utils/commit/f7c23a09b62b07cf04bce4dda821b45f25e1f7fd))
+
 ## 1.0.0 (2025-02-05)
 
 
