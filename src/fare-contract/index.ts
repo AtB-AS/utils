@@ -4,5 +4,5 @@ export {
   FareContractState,
   TravelRight,
   TravelRightDirection,
-} from "./types";
-export { getAvailabilityStatus } from "./availability-status";
+} from './types';
+export {getAvailabilityStatus} from './availability-status';

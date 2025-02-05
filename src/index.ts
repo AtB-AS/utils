@@ -1,1 +1,1 @@
-export * from "./fare-contract";
+export * from './fare-contract';

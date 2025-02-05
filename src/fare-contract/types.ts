@@ -1,4 +1,4 @@
-import { z } from "zod";
+import {z} from 'zod';
 
 enum TravelRightStatus {
   UNSPECIFIED = 0,
@@ -16,10 +16,10 @@ enum TravelRightStatus {
 }
 
 export enum TravelRightDirection {
-  Unspecified = "0",
-  Both = "1",
-  Forwards = "2",
-  Backwards = "3",
+  Unspecified = '0',
+  Both = '1',
+  Forwards = '2',
+  Backwards = '3',
 }
 
 /**
