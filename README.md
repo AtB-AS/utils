@@ -8,6 +8,18 @@ Shared typescript utility methods and types for AtB products.
 yarn add @atb-as/utils
 ```
 
+## Local development
+
+In order to test local changes to the package locally, you can use yalc to link the local package. This is an alternative to `yarn link`, that works better with React Native / metro.
+
+1. Run `npm i yalc -g` to install yalc on your machine.
+2. Run `yarn build && yalc push` to set up a local link to this package.
+3. Run `yalc add @atb-as/utils` in the project that depends on it.
+
+Your local changes to `@atb-as/utils` should now be available to use. When you make more changes locally, you can run `yarn build && yalc push` again to update the linked package.
+
+When you're done, run `yalc remove --all` to reset the project's `package.json`.
+
 ## Release
 
 1. Merge a PR to main, where the commit message follows the [conventional commits specification](https://www.conventionalcommits.org/en/v1.0.0/).
