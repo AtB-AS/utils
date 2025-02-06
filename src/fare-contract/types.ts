@@ -43,8 +43,8 @@ export const TravelRight = z.object({
   fareProductRef: z.string(),
   startDateTime: z.date(),
   endDateTime: z.date(),
-  usageValidityPeriodRef: z.string(),
-  userProfileRef: z.string(),
+  usageValidityPeriodRef: z.string().optional(),
+  userProfileRef: z.string().optional(),
   authorityRef: z.string(),
   tariffZoneRefs: z.array(z.string()).optional(),
   fareZoneRefs: z.array(z.string()).optional(),
@@ -63,6 +63,9 @@ export enum FareContractState {
   Activated = 2,
   Cancelled = 3,
   Refunded = 4,
+  Moved = 5,
+  Expired = 6,
+  Archived = 7,
 }
 /**
  * For definition, see `FareContract` struct in ticket service
@@ -73,6 +76,7 @@ export const FareContract = z.object({
   id: z.string(),
   customerAccountId: z.string(),
   orderId: z.string(),
+  bookingId: z.string().uuid().optional(),
   paymentType: z.array(z.string()),
   qrCode: z.string().optional(),
   state: z.nativeEnum(FareContractState),
