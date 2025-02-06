@@ -1,8 +1,8 @@
 export {
-  UsedAccess,
-  FareContract,
+  UsedAccessType,
+  FareContractType,
   FareContractState,
-  TravelRight,
+  TravelRightType,
   TravelRightDirection,
 } from './types';
 export {getAvailabilityStatus, AvailabilityStatus} from './availability-status';

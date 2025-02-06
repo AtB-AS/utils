@@ -6,41 +6,40 @@ import {singleTravelRight} from './fixtures/single-travelright';
 import {singleBoatTravelRight} from './fixtures/single-boat-travelright';
 import {youthTravelRight} from './fixtures/youth-travelright';
 
-import {TravelRight} from '../types';
+import {TravelRightType} from '../types';
 import {getAccesses} from '../accesses';
 import {skoleskyssTravelRight} from './fixtures/skoleskyss-travelright';
+import {periodBoatFareContract} from './fixtures/period-boat-farecontract';
+import {carnetFareContract} from './fixtures/carnet-farecontact';
 
 describe('Travelright type', () => {
   it('all should resolve to normal', async () => {
-    expect(TravelRight.safeParse(nightTravelRight).success).toBe(true);
-    expect(TravelRight.safeParse(periodTravelRight).success).toBe(true);
+    expect(TravelRightType.safeParse(nightTravelRight).success).toBe(true);
+    expect(TravelRightType.safeParse(periodTravelRight).success).toBe(true);
     expect(
-      TravelRight.safeParse(periodBoatTravelRight as TravelRight).success,
+      TravelRightType.safeParse(periodBoatTravelRight as TravelRightType)
+        .success,
     ).toBe(true);
-    expect(TravelRight.safeParse(singleTravelRight).success).toBe(true);
+    expect(TravelRightType.safeParse(singleTravelRight).success).toBe(true);
     expect(
-      TravelRight.safeParse(singleBoatTravelRight as TravelRight).success,
+      TravelRightType.safeParse(singleBoatTravelRight as TravelRightType)
+        .success,
     ).toBe(true);
-    expect(TravelRight.safeParse(youthTravelRight).success).toBe(true);
-    expect(TravelRight.safeParse(carnetTravelRight).success).toBe(true);
+    expect(TravelRightType.safeParse(youthTravelRight).success).toBe(true);
+    expect(TravelRightType.safeParse(carnetTravelRight).success).toBe(true);
   });
 
   it('non carnets should not have flattened accesses', async () => {
-    expect(getAccesses([nightTravelRight])).toBe(undefined);
-    expect(getAccesses([periodTravelRight])).toBe(undefined);
-    expect(getAccesses([periodBoatTravelRight as TravelRight])).toBe(undefined);
-    expect(getAccesses([singleTravelRight])).toBe(undefined);
-    expect(getAccesses([singleBoatTravelRight as TravelRight])).toBe(undefined);
-    expect(getAccesses([youthTravelRight])).toBe(undefined);
+    expect(getAccesses(periodBoatFareContract)).toBe(undefined);
   });
 
   it('carnets should have flattened accesses', async () => {
-    expect(getAccesses([carnetTravelRight])).toBeDefined();
+    expect(getAccesses(carnetFareContract)).toBeDefined();
   });
 
   it('skoleskyss should not resolve to normal', async () => {
-    expect(TravelRight.safeParse(skoleskyssTravelRight as any).success).toBe(
-      false,
-    );
+    expect(
+      TravelRightType.safeParse(skoleskyssTravelRight as any).success,
+    ).toBe(false);
   });
 });

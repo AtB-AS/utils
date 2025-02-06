@@ -1,14 +1,14 @@
-import {UsedAccess, FareContract} from './types';
+import {UsedAccessType, FareContractType} from './types';
 import {flatten, sumBy} from 'lodash';
 
-type FlattenedAccesses = {
-  usedAccesses: UsedAccess[];
+type AccessInfoType = {
+  usedAccesses: UsedAccessType[];
   maximumNumberOfAccesses: number;
   numberOfUsedAccesses: number;
 };
 export function getAccesses(
-  fareContract: FareContract,
-): FlattenedAccesses | undefined {
+  fareContract: FareContractType,
+): AccessInfoType | undefined {
   // If there are no accesses, return undefined
   if (!hasAccesses(fareContract)) return undefined;
 
@@ -33,7 +33,7 @@ export function getAccesses(
   };
 }
 
-export function hasAccesses(fareContract: FareContract) {
+export function hasAccesses(fareContract: FareContractType) {
   return fareContract.travelRights.some(
     (tr) => tr.maximumNumberOfAccesses !== undefined,
   );

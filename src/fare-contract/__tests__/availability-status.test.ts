@@ -1,8 +1,8 @@
 import {
-  UsedAccess,
-  FareContract,
+  UsedAccessType,
+  FareContractType,
   FareContractState,
-  TravelRight,
+  TravelRightType,
 } from '../types';
 import {getAvailabilityStatus} from '../availability-status';
 import {addMinutes} from './test-utils';
@@ -15,12 +15,12 @@ import {addMinutes} from './test-utils';
  */
 const createFareContract = (args?: {
   state?: FareContractState;
-  travelRights?: TravelRight[];
-}): FareContract => {
+  travelRights?: TravelRightType[];
+}): FareContractType => {
   return {
     state: args?.state === undefined ? FareContractState.Activated : args.state,
     travelRights: args?.travelRights ?? [createTravelRight()],
-  } as FareContract;
+  } as FareContractType;
 };
 
 /**
@@ -36,11 +36,11 @@ const createTravelRight = (
   } & (
     | {}
     | {
-        usedAccesses: UsedAccess[];
+        usedAccesses: UsedAccessType[];
         maximumNumberOfAccesses: number;
       }
   ),
-): TravelRight => {
+): TravelRightType => {
   const travelRight: any = {
     startDateTime: args?.startTime ?? addMinutes(new Date(), -60),
     endDateTime: args?.endTime ?? addMinutes(new Date(), 60),
@@ -50,7 +50,7 @@ const createTravelRight = (
     travelRight.numberOfUsedAccesses = args.usedAccesses.length;
     travelRight.usedAccesses = args.usedAccesses;
   }
-  return travelRight as TravelRight;
+  return travelRight as TravelRightType;
 };
 
 /**
@@ -59,7 +59,7 @@ const createTravelRight = (
 const createUsedAccess = (args?: {
   startTime?: Date;
   endTime?: Date;
-}): UsedAccess => {
+}): UsedAccessType => {
   return {
     startDateTime: args?.startTime ?? addMinutes(new Date(), -60),
     endDateTime: args?.endTime ?? addMinutes(new Date(), 60),

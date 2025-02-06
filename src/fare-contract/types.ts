@@ -26,17 +26,17 @@ export enum TravelRightDirection {
  * For definition, see `UsedAccess` struct in ticket service
  * https://github.com/AtB-AS/ticket/blob/main/firestore-client/src/travel_right.rs
  */
-export const UsedAccess = z.object({
+export const UsedAccessType = z.object({
   startDateTime: z.date(),
   endDateTime: z.date(),
 });
-export type UsedAccess = z.infer<typeof UsedAccess>;
+export type UsedAccessType = z.infer<typeof UsedAccessType>;
 
 /**
  * For definitions, see `TravelRight` struct in ticket service
  * https://github.com/AtB-AS/ticket/blob/main/firestore-client/src/travel_right.rs
  */
-export const TravelRight = z.object({
+export const TravelRightType = z.object({
   id: z.string(),
   customerAccountId: z.string().optional(),
   status: z.nativeEnum(TravelRightStatus),
@@ -53,9 +53,9 @@ export const TravelRight = z.object({
   direction: z.nativeEnum(TravelRightDirection).optional(),
   maximumNumberOfAccesses: z.number().optional(),
   numberOfUsedAccesses: z.number().optional(),
-  usedAccesses: z.array(UsedAccess).optional(),
+  usedAccesses: z.array(UsedAccessType).optional(),
 });
-export type TravelRight = z.infer<typeof TravelRight>;
+export type TravelRightType = z.infer<typeof TravelRightType>;
 
 export enum FareContractState {
   Unspecified = 0,
@@ -71,7 +71,7 @@ export enum FareContractState {
  * For definition, see `FareContract` struct in ticket service
  * https://github.com/AtB-AS/ticket/blob/main/firestore-client/src/fare_contract.rs
  */
-export const FareContract = z.object({
+export const FareContractType = z.object({
   created: z.date(),
   id: z.string(),
   customerAccountId: z.string(),
@@ -82,8 +82,8 @@ export const FareContract = z.object({
   state: z.nativeEnum(FareContractState),
   totalAmount: z.string(),
   totalTaxAmount: z.string(),
-  travelRights: z.array(TravelRight).nonempty(),
+  travelRights: z.array(TravelRightType).nonempty(),
   version: z.string(),
   purchasedBy: z.string(),
 });
-export type FareContract = z.infer<typeof FareContract>;
+export type FareContractType = z.infer<typeof FareContractType>;

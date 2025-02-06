@@ -1,6 +1,7 @@
+import {FareContractType} from '../../types';
 import {periodBoatTravelRight} from './period-boat-travelright';
 
-export const periodBoatFareContract = {
+export const periodBoatFareContract: FareContractType = {
   paymentType: ['MASTERCARD'],
   state: 2,
   purchasedBy: 'ATB:CustomerAccount:Qw3fhcJudvgCYR7yHScbFd1mPtP2',
