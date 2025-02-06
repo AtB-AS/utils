@@ -1,4 +1,4 @@
-import {UsedAccess, TravelRight} from './types';
+import {UsedAccess, FareContract} from './types';
 import {flatten, sumBy} from 'lodash';
 
 type FlattenedAccesses = {
@@ -6,22 +6,24 @@ type FlattenedAccesses = {
   maximumNumberOfAccesses: number;
   numberOfUsedAccesses: number;
 };
-export function flattenTravelRightAccesses(
-  travelRights: TravelRight[],
+export function getAccesses(
+  fareContract: FareContract,
 ): FlattenedAccesses | undefined {
   // If there are no accesses, return undefined
-  if (!hasTravelRightAccesses(travelRights)) return undefined;
+  if (!hasAccesses(fareContract)) return undefined;
 
-  const allUsedAccesses = travelRights.map((t) => t.usedAccesses ?? []);
+  const allUsedAccesses = fareContract.travelRights.map(
+    (t) => t.usedAccesses ?? [],
+  );
   const usedAccesses = flatten(allUsedAccesses).sort(
     (a, b) => a.startDateTime.getTime() - b.startDateTime.getTime(),
   );
   const maximumNumberOfAccesses = sumBy(
-    travelRights,
+    fareContract.travelRights,
     (t) => t.maximumNumberOfAccesses ?? 0,
   );
   const numberOfUsedAccesses = sumBy(
-    travelRights,
+    fareContract.travelRights,
     (t) => t.numberOfUsedAccesses ?? 0,
   );
   return {
@@ -31,6 +33,8 @@ export function flattenTravelRightAccesses(
   };
 }
 
-export function hasTravelRightAccesses(travelRights: TravelRight[]) {
-  return travelRights.some((tr) => tr.maximumNumberOfAccesses !== undefined);
+export function hasAccesses(fareContract: FareContract) {
+  return fareContract.travelRights.some(
+    (tr) => tr.maximumNumberOfAccesses !== undefined,
+  );
 }

@@ -6,4 +6,4 @@ export {
   TravelRightDirection,
 } from './types';
 export {getAvailabilityStatus, AvailabilityStatus} from './availability-status';
-export {flattenTravelRightAccesses} from './travel-right-accesses';
+export {getAccesses} from './accesses';

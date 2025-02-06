@@ -1,5 +1,5 @@
 import {type FareContract, FareContractState} from '.';
-import {flattenTravelRightAccesses} from './travel-right-accesses';
+import {getAccesses} from './accesses';
 
 export type AvailabilityStatus =
   | {availability: 'available'; status: 'upcoming' | 'valid'}
@@ -34,7 +34,7 @@ export const getAvailabilityStatus = (
     return {availability: 'invalid', status: 'invalid'};
   }
 
-  const flattenedAccesses = flattenTravelRightAccesses(fc.travelRights);
+  const flattenedAccesses = getAccesses(fc.travelRights);
   if (flattenedAccesses) {
     const {usedAccesses, maximumNumberOfAccesses, numberOfUsedAccesses} =
       flattenedAccesses;

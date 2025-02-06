@@ -7,7 +7,7 @@ import {singleBoatTravelRight} from './fixtures/single-boat-travelright';
 import {youthTravelRight} from './fixtures/youth-travelright';
 
 import {TravelRight} from '../types';
-import {flattenTravelRightAccesses} from '../travel-right-accesses';
+import {getAccesses} from '../accesses';
 import {skoleskyssTravelRight} from './fixtures/skoleskyss-travelright';
 
 describe('Travelright type', () => {
@@ -26,20 +26,16 @@ describe('Travelright type', () => {
   });
 
   it('non carnets should not have flattened accesses', async () => {
-    expect(flattenTravelRightAccesses([nightTravelRight])).toBe(undefined);
-    expect(flattenTravelRightAccesses([periodTravelRight])).toBe(undefined);
-    expect(
-      flattenTravelRightAccesses([periodBoatTravelRight as TravelRight]),
-    ).toBe(undefined);
-    expect(flattenTravelRightAccesses([singleTravelRight])).toBe(undefined);
-    expect(
-      flattenTravelRightAccesses([singleBoatTravelRight as TravelRight]),
-    ).toBe(undefined);
-    expect(flattenTravelRightAccesses([youthTravelRight])).toBe(undefined);
+    expect(getAccesses([nightTravelRight])).toBe(undefined);
+    expect(getAccesses([periodTravelRight])).toBe(undefined);
+    expect(getAccesses([periodBoatTravelRight as TravelRight])).toBe(undefined);
+    expect(getAccesses([singleTravelRight])).toBe(undefined);
+    expect(getAccesses([singleBoatTravelRight as TravelRight])).toBe(undefined);
+    expect(getAccesses([youthTravelRight])).toBe(undefined);
   });
 
   it('carnets should have flattened accesses', async () => {
-    expect(flattenTravelRightAccesses([carnetTravelRight])).toBeDefined();
+    expect(getAccesses([carnetTravelRight])).toBeDefined();
   });
 
   it('skoleskyss should not resolve to normal', async () => {
