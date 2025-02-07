@@ -1,9 +1,9 @@
 export {
-  UsedAccess,
-  FareContract,
+  UsedAccessType,
+  FareContractType,
   FareContractState,
-  TravelRight,
+  TravelRightType,
   TravelRightDirection,
 } from './types';
 export {getAvailabilityStatus, AvailabilityStatus} from './availability-status';
-export {flattenTravelRightAccesses} from './travel-right-accesses';
+export {getAccesses} from './accesses';

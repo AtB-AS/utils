@@ -1,5 +1,5 @@
-import {type FareContract, FareContractState} from '.';
-import {flattenTravelRightAccesses} from './travel-right-accesses';
+import {type FareContractType, FareContractState} from '.';
+import {getAccesses} from './accesses';
 
 export type AvailabilityStatus =
   | {availability: 'available'; status: 'upcoming' | 'valid'}
@@ -15,7 +15,7 @@ export type AvailabilityStatus =
  * @see https://github.com/AtB-AS/docs-private/blob/main/terminology.md#ticketing
  */
 export const getAvailabilityStatus = (
-  fc: FareContract,
+  fc: FareContractType,
   now: number,
 ): AvailabilityStatus => {
   if (fc.state === FareContractState.Refunded) {
@@ -34,7 +34,7 @@ export const getAvailabilityStatus = (
     return {availability: 'invalid', status: 'invalid'};
   }
 
-  const flattenedAccesses = flattenTravelRightAccesses(fc.travelRights);
+  const flattenedAccesses = getAccesses(fc);
   if (flattenedAccesses) {
     const {usedAccesses, maximumNumberOfAccesses, numberOfUsedAccesses} =
       flattenedAccesses;
