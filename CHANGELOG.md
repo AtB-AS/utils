@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.0.0](https://github.com/AtB-AS/utils/compare/v1.0.1...v2.0.0) (2025-02-07)
+
+
+### ⚠ BREAKING CHANGES
+
+* update naming of access utils and all types ([#4](https://github.com/AtB-AS/utils/issues/4))
+
+### Code Refactoring
+
+* update naming of access utils and all types ([#4](https://github.com/AtB-AS/utils/issues/4)) ([0a11675](https://github.com/AtB-AS/utils/commit/0a11675f1a9c64334e050d657fc1ab5199d6fdae))
+
 ## [1.0.1](https://github.com/AtB-AS/utils/compare/v1.0.0...v1.0.1) (2025-02-05)
 
 
