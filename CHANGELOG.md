@@ -1,5 +1,22 @@
 # Changelog
 
+## [2.1.0](https://github.com/AtB-AS/utils/compare/v2.0.0...v2.1.0) (2025-02-11)
+
+
+### Features
+
+* export TravelRightStatus ([#7](https://github.com/AtB-AS/utils/issues/7)) ([388b7e2](https://github.com/AtB-AS/utils/commit/388b7e2359cd35f3c1b668049ab230150e1f52e5))
+
+
+### Miscellaneous Chores
+
+* release 2.1.0 ([9359b69](https://github.com/AtB-AS/utils/commit/9359b693708969a77e07a55388cbff3e6b617f52))
+
+
+### Continuous Integration
+
+* remove personal access token used by release please action ([4f4e7f0](https://github.com/AtB-AS/utils/commit/4f4e7f0829437d100664b11d32f1c7514ce618a8))
+
 ## [2.0.0](https://github.com/AtB-AS/utils/compare/v1.0.1...v2.0.0) (2025-02-07)
 
 
