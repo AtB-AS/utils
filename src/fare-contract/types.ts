@@ -1,6 +1,6 @@
 import {z} from 'zod';
 
-enum TravelRightStatus {
+export enum TravelRightStatus {
   UNSPECIFIED = 0,
   RESERVED = 1,
   ORDERED = 2,
