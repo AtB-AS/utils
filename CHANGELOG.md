@@ -1,5 +1,16 @@
 # Changelog
 
+## [3.0.0](https://github.com/AtB-AS/utils/compare/v2.1.0...v3.0.0) (2025-02-13)
+
+
+### ⚠ BREAKING CHANGES
+
+* make purchasedBy optional ([#8](https://github.com/AtB-AS/utils/issues/8))
+
+### Bug Fixes
+
+* make purchasedBy optional ([#8](https://github.com/AtB-AS/utils/issues/8)) ([dece128](https://github.com/AtB-AS/utils/commit/dece128b415588b8ade4173efa1feeafacef431b))
+
 ## [2.1.0](https://github.com/AtB-AS/utils/compare/v2.0.0...v2.1.0) (2025-02-11)
 
 
