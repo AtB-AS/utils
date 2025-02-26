@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.0.1](https://github.com/AtB-AS/utils/compare/v3.0.0...v3.0.1) (2025-02-26)
+
+
+### Miscellaneous Chores
+
+* release 3.0.1 ([d500c16](https://github.com/AtB-AS/utils/commit/d500c16eea81e074975fb34d956a1babc34da827))
+
 ## [3.0.0](https://github.com/AtB-AS/utils/compare/v2.1.0...v3.0.0) (2025-02-13)
 
 
