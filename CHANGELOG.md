@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.1.0](https://github.com/AtB-AS/utils/compare/v3.0.1...v3.1.0) (2025-03-19)
+
+
+### Features
+
+* add school ticket fields ([#12](https://github.com/AtB-AS/utils/issues/12)) ([5b1ecf4](https://github.com/AtB-AS/utils/commit/5b1ecf4fc0881b71b01708c5e47c5a92e16005aa))
+
 ## [3.0.1](https://github.com/AtB-AS/utils/compare/v3.0.0...v3.0.1) (2025-02-26)
 
 
