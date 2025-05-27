@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.2.0](https://github.com/AtB-AS/utils/compare/v3.1.0...v3.2.0) (2025-05-27)
+
+
+### Features
+
+* add ErrorResponse ([#16](https://github.com/AtB-AS/utils/issues/16)) ([7cf274c](https://github.com/AtB-AS/utils/commit/7cf274ca68173227014f0e0b3bd204e9ce015529))
+
 ## [3.1.0](https://github.com/AtB-AS/utils/compare/v3.0.1...v3.1.0) (2025-03-19)
 
 
