@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.4.0](https://github.com/AtB-AS/utils/compare/v3.3.0...v3.4.0) (2025-05-30)
+
+
+### Features
+
+* Added BookingAvailabilityType ([#19](https://github.com/AtB-AS/utils/issues/19)) ([58db3ca](https://github.com/AtB-AS/utils/commit/58db3cadd793c83c7dbeb368e2b8645f047a8b73))
+
 ## [3.3.0](https://github.com/AtB-AS/utils/compare/v3.2.0...v3.3.0) (2025-05-30)
 
 
