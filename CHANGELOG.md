@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.3.0](https://github.com/AtB-AS/utils/compare/v3.2.0...v3.3.0) (2025-05-30)
+
+
+### Features
+
+* add TicketOffer ([#17](https://github.com/AtB-AS/utils/issues/17)) ([3f62506](https://github.com/AtB-AS/utils/commit/3f62506d98af5992505c7f3872523c7a11a370d1))
+
 ## [3.2.0](https://github.com/AtB-AS/utils/compare/v3.1.0...v3.2.0) (2025-05-27)
 
 
