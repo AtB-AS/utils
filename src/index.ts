@@ -1,3 +1,3 @@
 export * from './fare-contract';
-export {type ErrorResponse, type HttpError} from './error-response';
-export {type BookingAvailabilityType} from './offers/booking';
+export {ErrorResponse, HttpError} from './error-response';
+export {BookingAvailabilityType} from './offers/booking';
