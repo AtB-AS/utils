@@ -1,0 +1,16 @@
+export const travelRightStringDate = {
+  startDateTime: '2025-05-05T09:39:30.651Z',
+  endDateTime: '2025-05-05T09:39:30.651Z',
+  authorityRef: 'ATB:Authority:2',
+  customerAccountId: 'ATB:CustomerAccount:zozaUVuZmUZVC5UxGzJZiHmrTIz1',
+  status: 5,
+  usageValidityPeriodRef: '',
+  userProfileRef: 'ATB:UserProfile:8ee842e3',
+  type: 'PreActivatedSingleTicket',
+  fareProductRef: 'ATB:PreassignedFareProduct:8808c360',
+  id: 'ATB:CustomerPurchasePackage:4ed7cc65-7b12-4f55-92b0-859d2de03e0c',
+  endPointRef: 'NSR:StopPlace:40114',
+  startPointRef: 'NSR:StopPlace:74007',
+  fareZoneRefs: ['ATB:FareZone:10'],
+  tariffZoneRefs: ['ATB:TariffZone:1'],
+};
