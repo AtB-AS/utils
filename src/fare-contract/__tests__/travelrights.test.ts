@@ -11,6 +11,7 @@ import {getAccesses} from '../accesses';
 import {skoleskyssTravelRight} from './fixtures/skoleskyss-travelright';
 import {periodBoatFareContract} from './fixtures/period-boat-farecontract';
 import {carnetFareContract} from './fixtures/carnet-farecontact';
+import {travelRightStringDate} from './fixtures/travelright-string-date';
 
 describe('Travelright type', () => {
   it('all should resolve to normal', async () => {
@@ -41,5 +42,14 @@ describe('Travelright type', () => {
     expect(
       TravelRightType.safeParse(skoleskyssTravelRight as any).success,
     ).toBe(false);
+  });
+});
+
+describe('Travelright with string dates', () => {
+  it('should coerce string date to Date', () => {
+    const result = TravelRightType.safeParse(travelRightStringDate);
+    expect(result.success).toBe(true);
+    expect(result.data?.startDateTime.getFullYear() === 2025);
+    expect(result.data?.endDateTime.getFullYear() === 2025);
   });
 });

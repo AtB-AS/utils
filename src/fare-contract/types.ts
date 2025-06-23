@@ -27,8 +27,8 @@ export enum TravelRightDirection {
  * https://github.com/AtB-AS/ticket/blob/main/firestore-client/src/travel_right.rs
  */
 export const UsedAccessType = z.object({
-  startDateTime: z.date(),
-  endDateTime: z.date(),
+  startDateTime: z.coerce.date(),
+  endDateTime: z.coerce.date(),
 });
 export type UsedAccessType = z.infer<typeof UsedAccessType>;
 
@@ -41,8 +41,8 @@ export const TravelRightType = z.object({
   customerAccountId: z.string().optional(),
   status: z.nativeEnum(TravelRightStatus),
   fareProductRef: z.string(),
-  startDateTime: z.date(),
-  endDateTime: z.date(),
+  startDateTime: z.coerce.date(),
+  endDateTime: z.coerce.date(),
   usageValidityPeriodRef: z.string().optional(),
   userProfileRef: z.string().optional(),
   authorityRef: z.string(),
@@ -74,7 +74,7 @@ export enum FareContractState {
  * https://github.com/AtB-AS/ticket/blob/main/firestore-client/src/fare_contract.rs
  */
 export const FareContractType = z.object({
-  created: z.date(),
+  created: z.coerce.date(),
   id: z.string(),
   customerAccountId: z.string(),
   orderId: z.string(),
