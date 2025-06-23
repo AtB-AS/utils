@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.5.0](https://github.com/AtB-AS/utils/compare/v3.4.0...v3.5.0) (2025-06-23)
+
+
+### Features
+
+* coerce fare contract date strings to Date ([#23](https://github.com/AtB-AS/utils/issues/23)) ([d318ddb](https://github.com/AtB-AS/utils/commit/d318ddb173db693e505e03f4c547b67cf296abda))
+
 ## [3.4.0](https://github.com/AtB-AS/utils/compare/v3.3.0...v3.4.0) (2025-05-30)
 
 
