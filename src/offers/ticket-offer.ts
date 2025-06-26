@@ -8,6 +8,7 @@ export const FlexDiscountStep = z.object({
   expires: z.string().nullish(),
   discount: z.number(),
 });
+export type FlexDiscountStep = z.infer<typeof FlexDiscountStep>;
 
 /**
  * FlexDiscountLadder in
@@ -17,6 +18,7 @@ export const FlexDiscountLadder = z.object({
   current: z.number(),
   steps: z.array(FlexDiscountStep),
 });
+export type FlexDiscountLadder = z.infer<typeof FlexDiscountLadder>;
 
 /**
  * SearchOfferPrice in
@@ -51,6 +53,7 @@ export const TicketRoute = z.object({
   from: z.string().nullish(),
   to: z.string().nullish(),
 });
+export type TicketRoute = z.infer<typeof TicketRoute>;
 
 /**
  * TicketOffer in
