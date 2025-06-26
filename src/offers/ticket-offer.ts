@@ -64,7 +64,7 @@ export const TicketOffer = z.object({
   validFrom: z.string().nullish(),
   validTo: z.string().nullish(),
   flexDiscountLadder: FlexDiscountLadder.nullish(),
-  route: z.any(),
+  route: TicketRoute,
   shouldStartNow: z.boolean(),
   available: z.number().nullish(),
 });
