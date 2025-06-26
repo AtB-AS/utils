@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.1.0](https://github.com/AtB-AS/utils/compare/v4.0.0...v4.1.0) (2025-06-26)
+
+
+### Features
+
+* transform nullish ticket-offer types to optional ([#27](https://github.com/AtB-AS/utils/issues/27)) ([09646a5](https://github.com/AtB-AS/utils/commit/09646a5193109a1d701d42f79bd28a99af6b742b))
+
 ## [4.0.0](https://github.com/AtB-AS/utils/compare/v3.5.0...v4.0.0) (2025-06-26)
 
 
