@@ -1,6 +1,6 @@
 {
   "name": "@atb-as/utils",
-  "version": "3.5.0",
+  "version": "4.0.0",
   "description": "Shared utility methods and types for AtB products",
   "main": "lib/index.js",
   "module": "lib/index.js",

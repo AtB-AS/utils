@@ -1,5 +1,21 @@
 # Changelog
 
+## [4.0.0](https://github.com/AtB-AS/utils/compare/v3.5.0...v4.0.0) (2025-06-26)
+
+
+### ⚠ BREAKING CHANGES
+
+* use correct type for TicketOffer route
+
+### Features
+
+* export all ticket offer schemas as types ([23359cc](https://github.com/AtB-AS/utils/commit/23359cc22473daa064f235f16f9b78dcebae076f))
+
+
+### Bug Fixes
+
+* use correct type for TicketOffer route ([d2580fa](https://github.com/AtB-AS/utils/commit/d2580fa2227ed7b721e38b9dc04a86bc4314755e))
+
 ## [3.5.0](https://github.com/AtB-AS/utils/compare/v3.4.0...v3.5.0) (2025-06-23)
 
 
