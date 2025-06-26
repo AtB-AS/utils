@@ -1,11 +1,12 @@
 import {z} from 'zod';
+import {nullishToOptional} from '../utils';
 
 /**
  * FlexDiscountStep in
  * https://github.com/AtB-AS/sales/blob/main/sales-service/src/flexible.rs
  */
 export const FlexDiscountStep = z.object({
-  expires: z.string().nullish(),
+  expires: z.string().nullish().transform(nullishToOptional),
   discount: z.number(),
 });
 export type FlexDiscountStep = z.infer<typeof FlexDiscountStep>;
@@ -26,11 +27,11 @@ export type FlexDiscountLadder = z.infer<typeof FlexDiscountLadder>;
  */
 export const SearchOfferPrice = z.object({
   originalAmount: z.string(),
-  originalAmountFloat: z.number().nullish(),
+  originalAmountFloat: z.number().nullish().transform(nullishToOptional),
   amount: z.string(),
-  amountFloat: z.number().nullish(),
+  amountFloat: z.number().nullish().transform(nullishToOptional),
   currency: z.string(),
-  vatGroup: z.string().nullish(),
+  vatGroup: z.string().nullish().transform(nullishToOptional),
 });
 export type SearchOfferPrice = z.infer<typeof SearchOfferPrice>;
 
@@ -50,8 +51,8 @@ export enum OfferValidity {
  */
 export const TicketRoute = z.object({
   type: z.nativeEnum(OfferValidity),
-  from: z.string().nullish(),
-  to: z.string().nullish(),
+  from: z.string().nullish().transform(nullishToOptional),
+  to: z.string().nullish().transform(nullishToOptional),
 });
 export type TicketRoute = z.infer<typeof TicketRoute>;
 
@@ -64,12 +65,12 @@ export const TicketOffer = z.object({
   travellerId: z.string(),
   price: SearchOfferPrice,
   fareProduct: z.string(),
-  validFrom: z.string().nullish(),
-  validTo: z.string().nullish(),
-  flexDiscountLadder: FlexDiscountLadder.nullish(),
+  validFrom: z.string().nullish().transform(nullishToOptional),
+  validTo: z.string().nullish().transform(nullishToOptional),
+  flexDiscountLadder: FlexDiscountLadder.nullish().transform(nullishToOptional),
   route: TicketRoute,
   shouldStartNow: z.boolean(),
-  available: z.number().nullish(),
+  available: z.number().nullish().transform(nullishToOptional),
 });
 export type TicketOffer = z.infer<typeof TicketOffer>;
 
