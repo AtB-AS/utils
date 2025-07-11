@@ -60,6 +60,10 @@ export const TravelRightType = z.object({
   usedAccesses: z.array(UsedAccessType).optional(),
   schoolName: z.string().optional(),
   travelerName: z.string().optional(),
+  datedServiceJourneyRefs: z
+    .array(z.string())
+    .nullish()
+    .transform(nullishToOptional),
 });
 export type TravelRightType = z.infer<typeof TravelRightType>;
 
