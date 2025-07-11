@@ -1,5 +1,17 @@
 # Changelog
 
+## [4.2.0](https://github.com/AtB-AS/utils/compare/v4.1.0...v4.2.0) (2025-07-11)
+
+
+### Features
+
+* Added datedServiceJourneyRefs to travelRight ([#31](https://github.com/AtB-AS/utils/issues/31)) ([b116065](https://github.com/AtB-AS/utils/commit/b1160650e573f8bca172f3973daf511190f696f4))
+
+
+### Bug Fixes
+
+* .optional() to .nullish() for some values ([#29](https://github.com/AtB-AS/utils/issues/29)) ([cfd8b4f](https://github.com/AtB-AS/utils/commit/cfd8b4fc8801fa0dc891dbda78534447f441ca05))
+
 ## [4.1.0](https://github.com/AtB-AS/utils/compare/v4.0.0...v4.1.0) (2025-06-26)
 
 
