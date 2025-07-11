@@ -1,5 +1,5 @@
 import {z} from 'zod';
-import {nullishToOptional} from "../utils";
+import {nullishToOptional} from '../utils';
 
 export enum TravelRightStatus {
   UNSPECIFIED = 0,
@@ -51,7 +51,10 @@ export const TravelRightType = z.object({
   fareZoneRefs: z.array(z.string()).optional(),
   startPointRef: z.string().nullish().transform(nullishToOptional),
   endPointRef: z.string().nullish().transform(nullishToOptional),
-  direction: z.nativeEnum(TravelRightDirection).nullish().transform(nullishToOptional),
+  direction: z
+    .nativeEnum(TravelRightDirection)
+    .nullish()
+    .transform(nullishToOptional),
   maximumNumberOfAccesses: z.number().optional(),
   numberOfUsedAccesses: z.number().optional(),
   usedAccesses: z.array(UsedAccessType).optional(),
