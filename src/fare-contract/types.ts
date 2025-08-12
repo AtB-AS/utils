@@ -33,6 +33,15 @@ export const UsedAccessType = z.object({
 });
 export type UsedAccessType = z.infer<typeof UsedAccessType>;
 
+export const DatedServiceJourneyRefsType = z.object({
+  datedServiceJourneyRef: z.string(),
+  startPointRef: z.string(),
+  endPointRef: z.string(),
+});
+export type DatedServiceJourneyRefsType = z.infer<
+  typeof DatedServiceJourneyRefsType
+>;
+
 /**
  * For definitions, see `TravelRight` struct in ticket service
  * https://github.com/AtB-AS/ticket/blob/main/firestore-client/src/travel_right.rs
@@ -60,8 +69,8 @@ export const TravelRightType = z.object({
   usedAccesses: z.array(UsedAccessType).optional(),
   schoolName: z.string().optional(),
   travelerName: z.string().optional(),
-  datedServiceJourneyRefs: z
-    .array(z.string())
+  datedServiceJourneys: z
+    .array(DatedServiceJourneyRefsType)
     .nullish()
     .transform(nullishToOptional),
 });
