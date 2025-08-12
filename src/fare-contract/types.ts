@@ -37,8 +37,10 @@ export const DatedServiceJourneyRefsType = z.object({
   datedServiceJourneyRef: z.string(),
   startPointRef: z.string(),
   endPointRef: z.string(),
-})
-export type DatedServiceJourneyRefsType = z.infer<typeof DatedServiceJourneyRefsType>;
+});
+export type DatedServiceJourneyRefsType = z.infer<
+  typeof DatedServiceJourneyRefsType
+>;
 
 /**
  * For definitions, see `TravelRight` struct in ticket service
