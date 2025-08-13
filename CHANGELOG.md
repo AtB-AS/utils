@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.3.0](https://github.com/AtB-AS/utils/compare/v4.2.0...v4.3.0) (2025-08-13)
+
+
+### Features
+
+* Added DatedServiceJourney to TravelRight ([#33](https://github.com/AtB-AS/utils/issues/33)) ([55b3e48](https://github.com/AtB-AS/utils/commit/55b3e4855ee0c6115f6ebb2fba99dcd9a9a0a445))
+
 ## [4.2.0](https://github.com/AtB-AS/utils/compare/v4.1.0...v4.2.0) (2025-07-11)
 
 
