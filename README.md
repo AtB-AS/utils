@@ -30,6 +30,14 @@ When you're done, run `yalc remove --all` to reset the project's `package.json`.
   - Other prefixes such as `chore` or `refactor` will not trigger a release.
 3. Merge the release PR to main to trigger a NPM release.
 
+> [!NOTE]
+> In case you want to create a release with a different version number than the one suggested by release-please, you can make an empty commit on master with commit message on this format:
+> ```
+> chore: release v1.2.3
+>
+> release-as: 1.2.3
+> ```
+
 For more details, see [release-please-action](https://github.com/googleapis/release-please-action).
 
 ## License
