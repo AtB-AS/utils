@@ -1,4 +1,4 @@
-import {FareContractType} from '../../types';
+import {FareContractType, TravelRightType} from '../../types';
 import {carnetTravelRight} from './carnet-travelright';
 
 export const carnetFareContract: FareContractType = {
@@ -13,6 +13,6 @@ export const carnetFareContract: FareContractType = {
   customerAccountId: 'ATB:CustomerAccount:Qw3fhcJudvgCYR7yHScbFd1mPtP2',
   orderId: 'E69J9NJH',
   created: new Date(Date.now() - 1000 * 60 * 60 * 10), // 10 hours ago
-  travelRights: [carnetTravelRight],
+  travelRights: [carnetTravelRight as unknown as TravelRightType],
   totalTaxAmount: '46.07',
 };

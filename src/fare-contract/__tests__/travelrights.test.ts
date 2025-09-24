@@ -18,13 +18,15 @@ describe('Travelright type', () => {
     expect(TravelRightType.safeParse(nightTravelRight).success).toBe(true);
     expect(TravelRightType.safeParse(periodTravelRight).success).toBe(true);
     expect(
-      TravelRightType.safeParse(periodBoatTravelRight as TravelRightType)
-        .success,
+      TravelRightType.safeParse(
+        periodBoatTravelRight as unknown as TravelRightType,
+      ).success,
     ).toBe(true);
     expect(TravelRightType.safeParse(singleTravelRight).success).toBe(true);
     expect(
-      TravelRightType.safeParse(singleBoatTravelRight as TravelRightType)
-        .success,
+      TravelRightType.safeParse(
+        singleBoatTravelRight as unknown as TravelRightType,
+      ).success,
     ).toBe(true);
     expect(TravelRightType.safeParse(youthTravelRight).success).toBe(true);
     expect(TravelRightType.safeParse(carnetTravelRight).success).toBe(true);
