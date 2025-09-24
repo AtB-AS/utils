@@ -1,5 +1,16 @@
 # Changelog
 
+## [5.0.0](https://github.com/AtB-AS/utils/compare/v4.3.0...v5.0.0) (2025-09-24)
+
+
+### ⚠ BREAKING CHANGES
+
+* zod and node version upgrade ([#38](https://github.com/AtB-AS/utils/issues/38))
+
+### Miscellaneous Chores
+
+* zod and node version upgrade ([#38](https://github.com/AtB-AS/utils/issues/38)) ([41068ae](https://github.com/AtB-AS/utils/commit/41068ae04e8c3a7ffbba6534e786fc42e5a5684c))
+
 ## [4.3.0](https://github.com/AtB-AS/utils/compare/v4.2.0...v4.3.0) (2025-08-13)
 
 
