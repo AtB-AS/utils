@@ -1,4 +1,4 @@
-import {FareContractType} from '../../types';
+import {FareContractType, TravelRightType} from '../../types';
 import {periodBoatTravelRight} from './period-boat-travelright';
 
 export const periodBoatFareContract: FareContractType = {
@@ -13,6 +13,6 @@ export const periodBoatFareContract: FareContractType = {
   customerAccountId: 'ATB:CustomerAccount:Qw3fhcJudvgCYR7yHScbFd1mPtP2',
   orderId: '8MTTWRI4',
   created: new Date(Date.now() - 1000 * 60 * 60 * 10), // 10 hours ago
-  travelRights: [periodBoatTravelRight],
+  travelRights: [periodBoatTravelRight as unknown as TravelRightType],
   totalTaxAmount: '895.82',
 };
