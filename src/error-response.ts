@@ -1,4 +1,4 @@
-import {z} from 'zod/v4';
+import {z} from 'zod';
 
 /** https://github.com/AtB-AS/amp-rs/blob/main/amp-http/src/lib.rs */
 export const HttpError = z.object({
