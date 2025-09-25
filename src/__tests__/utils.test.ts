@@ -1,12 +1,12 @@
 import {nullishToOptional, formatNumberToString} from '../utils';
 
-export enum AppLanguage {
+enum AppLanguage {
   Norwegian = 'nb',
   English = 'en',
   Nynorsk = 'nn',
 }
 
-export enum PlannerWebLanguage {
+enum PlannerWebLanguage {
   Norwegian = 'no',
   English = 'en-US',
   Nynorsk = 'nn',
