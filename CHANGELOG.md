@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.1.0](https://github.com/AtB-AS/utils/compare/v5.0.0...v5.1.0) (2025-09-25)
+
+
+### Features
+
+* Add formatNumberToString with tests ([#40](https://github.com/AtB-AS/utils/issues/40)) ([502edaf](https://github.com/AtB-AS/utils/commit/502edaff7dd49ef9397c1ad84234dd8418aacf53))
+
 ## [5.0.0](https://github.com/AtB-AS/utils/compare/v4.3.0...v5.0.0) (2025-09-24)
 
 
