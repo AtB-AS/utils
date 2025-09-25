@@ -14,13 +14,6 @@ export function nullishToOptional<T>(
   return value ?? undefined;
 }
 
-// Language should be imported from translations if that is also moved to utils one day.
-export enum Language {
-  Norwegian = 'nb',
-  English = 'en',
-  Nynorsk = 'nn',
-}
-
 /**
  * A utility function to format a number to a string with a given
  * number of decimals.
@@ -41,7 +34,7 @@ export enum Language {
  */
 export const formatNumberToString = (
   num: number,
-  language: Language,
+  language: Intl.LocalesArgument,
   minDigits: number = 0,
   maxDigits: number = 2,
 ) => {
