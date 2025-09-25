@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.1.1](https://github.com/AtB-AS/utils/compare/v5.1.0...v5.1.1) (2025-09-25)
+
+
+### Bug Fixes
+
+* format number to string patch ([#42](https://github.com/AtB-AS/utils/issues/42)) ([1408331](https://github.com/AtB-AS/utils/commit/1408331c5c73c85e37466a1ccb129eb0e2ecf291))
+
 ## [5.1.0](https://github.com/AtB-AS/utils/compare/v5.0.0...v5.1.0) (2025-09-25)
 
 
