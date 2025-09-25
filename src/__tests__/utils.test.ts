@@ -61,6 +61,59 @@ function runFormatNumberToStringTests(
         '1\u00a0234,50',
       );
     });
+
+    it('should show decimals on whole numbers if minDigits is set', () => {
+      expect(formatNumberToString(11.0, Enum.Norwegian, 2)).toBe('11,00');
+      expect(formatNumberToString(11, Enum.Norwegian, 2)).toBe('11,00');
+      expect(formatNumberToString(11.0, Enum.Norwegian, 2, 3)).toBe('11,00');
+      expect(formatNumberToString(11, Enum.Norwegian, 2, 3)).toBe('11,00');
+    });
+
+    it('should show number of decimals up to given maxDigits on decimal numbers', () => {
+      expect(formatNumberToString(10.2, Enum.Norwegian, undefined, 3)).toBe(
+        '10,20',
+      );
+      expect(formatNumberToString(10.23, Enum.Norwegian, undefined, 3)).toBe(
+        '10,23',
+      );
+      expect(formatNumberToString(10.233, Enum.Norwegian, undefined, 3)).toBe(
+        '10,233',
+      );
+      expect(formatNumberToString(10.237, Enum.Norwegian, undefined, 3)).toBe(
+        '10,237',
+      );
+      expect(formatNumberToString(10.2346, Enum.Norwegian, undefined, 3)).toBe(
+        '10,235',
+      );
+    });
+
+    it('should always round to whole number when minDigits and maxDigits are 0', () => {
+      expect(formatNumberToString(10.2, Enum.Norwegian, 0, 0)).toBe('10');
+      expect(formatNumberToString(10.23, Enum.Norwegian, 0, 0)).toBe('10');
+      expect(formatNumberToString(10.233, Enum.Norwegian, 0, 0)).toBe('10');
+      expect(formatNumberToString(10.237, Enum.Norwegian, 0, 0)).toBe('10');
+    });
+
+    it('should always show 3 digits', () => {
+      expect(formatNumberToString(10.2, Enum.Norwegian, 3, 3)).toBe('10,200');
+      expect(formatNumberToString(10.23, Enum.Norwegian, 3, 3)).toBe('10,230');
+      expect(formatNumberToString(10.233, Enum.Norwegian, 3, 3)).toBe('10,233');
+      expect(formatNumberToString(10.2376, Enum.Norwegian, 3, 3)).toBe(
+        '10,238',
+      );
+    });
+
+    it('should always show 1 digit', () => {
+      expect(formatNumberToString(10, Enum.Norwegian, 1, 1)).toBe('10,0');
+      expect(formatNumberToString(10.23, Enum.Norwegian, 1, 1)).toBe('10,2');
+      expect(formatNumberToString(10.233, Enum.Norwegian, 1, 1)).toBe('10,2');
+    });
+
+    it('should show max 1 digit', () => {
+      expect(formatNumberToString(10, Enum.Norwegian, 0, 1)).toBe('10');
+      expect(formatNumberToString(10.2, Enum.Norwegian, 0, 1)).toBe('10,2');
+      expect(formatNumberToString(10.233, Enum.Norwegian, 0, 1)).toBe('10,2');
+    });
   });
 }
 
