@@ -1,5 +1,15 @@
 # Changelog
 
+## [6.0.0](https://github.com/AtB-AS/utils/compare/v5.1.1...v6.0.0) (2025-11-24)
+
+⚠ BREAKING CHANGES
+
+* Support SupplementProduct in offers ([#45](https://github.com/AtB-AS/utils/issues/45))
+
+### Features
+
+* Support SupplementProduct in offers ([#45](https://github.com/AtB-AS/utils/issues/45)) ([d7530e8](https://github.com/AtB-AS/utils/commit/d7530e8455e6e24ca75fb11341c20b4219bd9d19))
+
 ## [5.1.1](https://github.com/AtB-AS/utils/compare/v5.1.0...v5.1.1) (2025-09-25)
 
 
