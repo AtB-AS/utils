@@ -57,6 +57,17 @@ export const TicketRoute = z.object({
 export type TicketRoute = z.infer<typeof TicketRoute>;
 
 /**
+ * SupplementProductOffer in (it is called SupplementProduct in the rust code)
+ * https://github.com/AtB-AS/sales/blob/main/sales-service/src/handlers/sales/search.rs
+ */
+export const SupplementProductOffer = z.object({
+  id: z.string(),
+  price: SearchOfferPrice,
+  selectableId: z.string(),
+});
+export type SupplementProductOffer = z.infer<typeof SupplementProductOffer>;
+
+/**
  * TicketOffer in
  * https://github.com/AtB-AS/sales/blob/main/sales-service/src/handlers/sales/search.rs
  */
@@ -64,13 +75,14 @@ export const TicketOffer = z.object({
   offerId: z.string(),
   travellerId: z.string(),
   price: SearchOfferPrice,
-  fareProduct: z.string(),
+  fareProduct: z.string().nullish().transform(nullishToOptional),
   validFrom: z.string().nullish().transform(nullishToOptional),
   validTo: z.string().nullish().transform(nullishToOptional),
   flexDiscountLadder: FlexDiscountLadder.nullish().transform(nullishToOptional),
   route: TicketRoute,
   shouldStartNow: z.boolean(),
   available: z.number().nullish().transform(nullishToOptional),
+  supplementProducts: z.array(SupplementProductOffer),
 });
 export type TicketOffer = z.infer<typeof TicketOffer>;
 
