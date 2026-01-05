@@ -86,6 +86,22 @@ export enum FareContractState {
   Expired = 6,
   Archived = 7,
 }
+
+export enum FormFactor {
+  Bicycle = 'BICYCLE',
+  Car = 'CAR',
+  CargoBicycle = 'CARGO_BICYCLE',
+  Moped = 'MOPED',
+  Other = 'OTHER',
+  Scooter = 'SCOOTER',
+  ScooterSeated = 'SCOOTER_SEATED',
+  ScooterStanding = 'SCOOTER_STANDING',
+}
+
+export const FormFactorSchema = z.enum(
+  Object.values(FormFactor) as [FormFactor, ...FormFactor[]],
+);
+
 /**
  * For definition, see `FareContract` struct in ticket service
  * https://github.com/AtB-AS/ticket/blob/main/firestore-client/src/fare_contract.rs
@@ -96,6 +112,9 @@ export const FareContractType = z.object({
   customerAccountId: z.string(),
   orderId: z.string(),
   bookingId: z.string().uuid().optional(),
+  formFactor: FormFactorSchema.optional(),
+  operatorId: z.string().optional(),
+  operatorName: z.string().optional(),
   paymentType: z.array(z.string()),
   qrCode: z.string().optional(),
   state: z.nativeEnum(FareContractState),
