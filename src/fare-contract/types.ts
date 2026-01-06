@@ -114,7 +114,6 @@ export const FareContractType = z.object({
   bookingId: z.string().uuid().optional(),
   formFactor: FormFactorSchema.optional(),
   operatorId: z.string().optional(),
-  operatorName: z.string().optional(),
   paymentType: z.array(z.string()),
   qrCode: z.string().optional(),
   state: z.nativeEnum(FareContractState),
