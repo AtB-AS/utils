@@ -87,7 +87,7 @@ export enum FareContractState {
   Archived = 7,
 }
 
-export enum FormFactor {
+enum FormFactor {
   Bicycle = 'BICYCLE',
   Car = 'CAR',
   CargoBicycle = 'CARGO_BICYCLE',
@@ -98,7 +98,7 @@ export enum FormFactor {
   ScooterStanding = 'SCOOTER_STANDING',
 }
 
-export const FormFactorSchema = z.enum(
+const FormFactorSchema = z.enum(
   Object.values(FormFactor) as [FormFactor, ...FormFactor[]],
 );
 
