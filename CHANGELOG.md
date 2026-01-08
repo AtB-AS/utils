@@ -1,5 +1,12 @@
 # Changelog
 
+## [6.1.0](https://github.com/AtB-AS/utils/compare/v6.0.0...v6.1.0) (2026-01-08)
+
+
+### Features
+
+* added formfactor and operatorid to the farecontract ([#47](https://github.com/AtB-AS/utils/issues/47)) ([9223f9d](https://github.com/AtB-AS/utils/commit/9223f9d8456f09c3f36057ad37ec66182544d96f))
+
 ## [6.0.0](https://github.com/AtB-AS/utils/compare/v5.1.1...v6.0.0) (2025-11-24)
 
 ⚠ BREAKING CHANGES
