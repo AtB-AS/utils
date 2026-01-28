@@ -1,5 +1,12 @@
 # Changelog
 
+## [6.1.3](https://github.com/AtB-AS/utils/compare/v6.1.2...v6.1.3) (2026-01-28)
+
+
+### Build System
+
+* use npm v11 for trusted publishing support ([#53](https://github.com/AtB-AS/utils/issues/53)) ([0d0470d](https://github.com/AtB-AS/utils/commit/0d0470d93093398556484eb7e64448500b75b3db))
+
 ## [6.1.2](https://github.com/AtB-AS/utils/compare/v6.1.1...v6.1.2) (2026-01-28)
 
 
