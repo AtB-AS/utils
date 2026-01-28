@@ -1,5 +1,12 @@
 # Changelog
 
+## [6.1.1](https://github.com/AtB-AS/utils/compare/v6.1.0...v6.1.1) (2026-01-28)
+
+
+### Continuous Integration
+
+* replace NPM_TOKEN with OIDC ([#49](https://github.com/AtB-AS/utils/issues/49)) ([93904aa](https://github.com/AtB-AS/utils/commit/93904aabddfa43f567e2a1770ba70094462f4442))
+
 ## [6.1.0](https://github.com/AtB-AS/utils/compare/v6.0.0...v6.1.0) (2026-01-08)
 
 
