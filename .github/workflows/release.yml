@@ -27,6 +27,8 @@ jobs:
           node-version: 22
           registry-url: 'https://registry.npmjs.org'
         if: ${{ steps.release.outputs.release_created }}
+      - run: npm install -g npm@11 # 11.5.1 needed for OIDC / Trusted publishing
+        if: ${{ steps.release.outputs.release_created }}
       - run: yarn install --frozen-lockfile
         if: ${{ steps.release.outputs.release_created }}
       - run: yarn build
