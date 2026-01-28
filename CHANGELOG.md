@@ -1,5 +1,12 @@
 # Changelog
 
+## [6.1.2](https://github.com/AtB-AS/utils/compare/v6.1.1...v6.1.2) (2026-01-28)
+
+
+### Miscellaneous Chores
+
+* trigger release ([#51](https://github.com/AtB-AS/utils/issues/51)) ([2af90d6](https://github.com/AtB-AS/utils/commit/2af90d616686054f7d9bfc13b895e24e2da86def))
+
 ## [6.1.1](https://github.com/AtB-AS/utils/compare/v6.1.0...v6.1.1) (2026-01-28)
 
 
