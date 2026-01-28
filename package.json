@@ -2,6 +2,9 @@
   "name": "@atb-as/utils",
   "version": "6.1.3",
   "description": "Shared utility methods and types for AtB products",
+  "repository": {
+    "url": "https://github.com/AtB-AS/utils"
+  },
   "main": "lib/index.js",
   "module": "lib/index.js",
   "types": "lib/index.d.ts",
