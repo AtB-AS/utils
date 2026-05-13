@@ -19,19 +19,18 @@ jobs:
         id: release
         with:
           release-type: node
-      - uses: actions/checkout@v4
-        # Ensure that a publication only occurs when a new release is created
+      - uses: actions/checkout@v6
         if: ${{ steps.release.outputs.release_created }}
-      - uses: actions/setup-node@v4
+      - uses: pnpm/action-setup@v6
+        if: ${{ steps.release.outputs.release_created }}
+      - uses: actions/setup-node@v6
         with:
           node-version: 22
           registry-url: 'https://registry.npmjs.org'
         if: ${{ steps.release.outputs.release_created }}
-      - run: npm install -g npm@11 # 11.5.1 needed for OIDC / Trusted publishing
+      - run: pnpm install --frozen-lockfile
         if: ${{ steps.release.outputs.release_created }}
-      - run: yarn install --frozen-lockfile
+      - run: pnpm build
         if: ${{ steps.release.outputs.release_created }}
-      - run: yarn build
-        if: ${{ steps.release.outputs.release_created }}
-      - run: npm publish --access public
+      - run: pnpm publish --access public
         if: ${{ steps.release.outputs.release_created }}
