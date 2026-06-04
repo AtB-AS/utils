@@ -8,16 +8,11 @@ jobs:
     name: TypeScript Check All
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - name: install node v22
-        uses: actions/setup-node@v1
+      - uses: actions/checkout@v6
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v6
         with:
-          node-version: 22
-      - uses: actions/cache@v4
-        with:
-          path: '**/node_modules'
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
-      - name: yarn install
-        run: yarn install --frozen-lockfile
-      - name: check-all
-        run: yarn check-all
+          node-version-file: '.nvmrc'
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm check-all
