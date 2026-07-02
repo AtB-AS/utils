@@ -2,7 +2,6 @@ export * from './fare-contract';
 export * from './offers/ticket-offer';
 export * from './rules';
 export * from './global-messages';
-export * from './common/language-and-text';
 export * from './common/app-platform';
 export {ErrorResponse, HttpError} from './error-response';
 export {BookingAvailabilityType} from './offers/booking';
