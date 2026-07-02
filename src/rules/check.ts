@@ -26,7 +26,7 @@ export const checkRules = (
   return true;
 };
 
-const checkRule = (
+export const checkRule = (
   globalMessageRule: Rule,
   localVariables: RuleVariables,
 ): boolean => {
