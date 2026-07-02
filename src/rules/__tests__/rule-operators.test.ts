@@ -1,4 +1,4 @@
-import {checkRule} from '../check';
+import {checkRule} from '../check-rules';
 import {Rule, RuleOperator, RuleVariables} from '../types';
 
 const createRule = (
