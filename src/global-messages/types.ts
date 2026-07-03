@@ -32,8 +32,8 @@ export function createGlobalMessageSchema<ContextEnum extends z.ZodType>(
     appPlatforms: z.array(AppPlatform).optional(),
     appVersionMin: z.string().optional(),
     appVersionMax: z.string().optional(),
-    startDate: z.coerce.date(),
-    endDate: z.coerce.date(),
+    startDate: z.coerce.date().optional(),
+    endDate: z.coerce.date().optional(),
     rules: z.array(Rule).optional(),
   });
 }
