@@ -1,5 +1,1 @@
-export {
-  GlobalMessageContextEnum,
-  GlobalMessageSchema,
-  GlobalMessageType,
-} from './types';
+export {createGlobalMessageSchema, GenericGlobalMessageType} from './types';
