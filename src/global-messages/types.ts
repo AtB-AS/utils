@@ -48,8 +48,8 @@ export const GlobalMessageSchema = z.object({
   appPlatforms: z.array(AppPlatform).optional(),
   appVersionMin: z.string().optional(),
   appVersionMax: z.string().optional(),
-  startDate: z.number().optional(),
-  endDate: z.number().optional(),
+  startDate: z.coerce.date(),
+  endDate: z.coerce.date(),
   rules: z.array(Rule).optional(),
 });
 export type GlobalMessageType = z.infer<typeof GlobalMessageSchema>;
