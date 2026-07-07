@@ -1,5 +1,12 @@
 # Changelog
 
+## [6.2.0](https://github.com/AtB-AS/utils/compare/v6.1.3...v6.2.0) (2026-07-07)
+
+
+### Features
+
+* add global messages ([#57](https://github.com/AtB-AS/utils/issues/57)) ([b9b18da](https://github.com/AtB-AS/utils/commit/b9b18da203a0fb3ca2392e0c1c7ba31172bbd09c))
+
 ## [6.1.3](https://github.com/AtB-AS/utils/compare/v6.1.2...v6.1.3) (2026-01-28)
 
 
