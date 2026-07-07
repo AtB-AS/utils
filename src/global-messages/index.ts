@@ -1,1 +1,1 @@
-export {createGlobalMessageSchema, GenericGlobalMessageType} from './types';
+export {GlobalMessageSchema, GlobalMessageType} from './types';
