@@ -1,5 +1,16 @@
 # Changelog
 
+## [7.0.0](https://github.com/AtB-AS/utils/compare/v6.2.0...v7.0.0) (2026-07-08)
+
+
+### ⚠ BREAKING CHANGES
+
+* use plain strings for global message contexts ([#60](https://github.com/AtB-AS/utils/issues/60))
+
+### Features
+
+* use plain strings for global message contexts ([#60](https://github.com/AtB-AS/utils/issues/60)) ([c8077ff](https://github.com/AtB-AS/utils/commit/c8077ff83fb54462a5d2594754e447fd6a40ad39))
+
 ## [6.2.0](https://github.com/AtB-AS/utils/compare/v6.1.3...v6.2.0) (2026-07-07)
 
 
