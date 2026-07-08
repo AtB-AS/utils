@@ -10,15 +10,11 @@ pnpm add @atb-as/utils
 
 ## Local development
 
-In order to test local changes to the package locally, you can use [yalc](https://github.com/wclr/yalc). This is an alternative to `yarn link`, that works better with React Native / metro.
+In order to test changes to this package without making a release, use `pnpm add file:<path-to-utils>` (e.g. `pnpm add file:../utils`) in the project that depends on it.
 
-1. Run `npm i yalc -g` to install yalc on your machine.
-2. Run `pnpm build && yalc push` to set up a local link to this package.
-3. Run `yalc add @atb-as/utils` in the project that depends on it.
+It will use the built version of the package, so make sure to run `pnpm build` when setting it up, and whenever you make changes.
 
-Your local changes to `@atb-as/utils` should now be available to use. When you make more changes locally, you can run `pnpm build && yalc push` again to update the linked package.
-
-When you're done, run `yalc remove --all` to reset the project's `package.json`.
+When you're done, set the package version in package.json back to the previous version.
 
 ## Release
 
