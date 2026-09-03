@@ -1,5 +1,12 @@
 # Changelog
 
+## [7.1.0](https://github.com/AtB-AS/utils/compare/v7.0.0...v7.1.0) (2026-09-03)
+
+
+### Features
+
+* add transfer risk logic ([#62](https://github.com/AtB-AS/utils/issues/62)) ([835bd75](https://github.com/AtB-AS/utils/commit/835bd753eb6b68f21d92a92ce9c3eba6571bff8e))
+
 ## [7.0.0](https://github.com/AtB-AS/utils/compare/v6.2.0...v7.0.0) (2026-07-08)
 
 
