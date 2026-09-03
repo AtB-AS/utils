@@ -1,26 +1,24 @@
-import type {InterchangeLeg} from './types';
-import {InterchangeRisk} from './types';
+import type {TransferLeg} from './types';
+import {TransferRisk} from './types';
 
-/** Below this, the interchange is not one to count on. */
-export const UNLIKELY_INTERCHANGE_LIMIT_IN_SECONDS = -120;
+/** Below this, the transfer is not one to count on. */
+export const UNLIKELY_TRANSFER_LIMIT_IN_SECONDS = -120;
 
 /**
  * Classifies the gap between arriving and the next departure. Zero counts as
  * uncertain; a non-finite gap yields undefined.
  */
-export const getInterchangeRisk = (
-  seconds: number,
-): InterchangeRisk | undefined => {
+export const getTransferRisk = (seconds: number): TransferRisk | undefined => {
   if (!Number.isFinite(seconds) || seconds > 0) {
     return undefined;
   }
-  return seconds < UNLIKELY_INTERCHANGE_LIMIT_IN_SECONDS
-    ? InterchangeRisk.Unlikely
-    : InterchangeRisk.Uncertain;
+  return seconds < UNLIKELY_TRANSFER_LIMIT_IN_SECONDS
+    ? TransferRisk.Unlikely
+    : TransferRisk.Uncertain;
 };
 
 /** Whether a leg is scheduled transit rather than walking, cycling and such. */
-export const isTransitLeg = (leg: InterchangeLeg): boolean =>
+export const isTransitLeg = (leg: TransferLeg): boolean =>
   leg.serviceJourney != null;
 
 /**
@@ -29,23 +27,23 @@ export const isTransitLeg = (leg: InterchangeLeg): boolean =>
  * before, so an intervening walk counts.
  *
  * Undefined when the leg is not transit, when no transit leg precedes it, or
- * when the interchange still holds. The transit check also keeps the warning
- * off the leg leading *into* a walk: those gaps are commonly re-anchored to
- * exactly zero, which would otherwise fire on every transfer.
+ * when the transfer still holds. The transit check also keeps the warning off
+ * the leg leading *into* a walk: those gaps are commonly re-anchored to exactly
+ * zero, which would otherwise fire on every transfer.
  */
-export const getLegInterchangeRisk = (
-  legs: InterchangeLeg[],
+export const getLegTransferRisk = (
+  legs: TransferLeg[],
   index: number,
-): InterchangeRisk | undefined => {
+): TransferRisk | undefined => {
   const boarding = legs[index];
   const arriveAt = legs[index - 1];
   if (!boarding || !arriveAt || !isTransitLeg(boarding)) return undefined;
 
   const alightedFrom = previousTransitLeg(legs, index);
   if (!alightedFrom) return undefined;
-  if (interchangeHolds(alightedFrom, boarding, arriveAt)) return undefined;
+  if (transferHolds(alightedFrom, boarding, arriveAt)) return undefined;
 
-  return getInterchangeRisk(
+  return getTransferRisk(
     secondsBetween(arriveAt.expectedEndTime, boarding.expectedStartTime),
   );
 };
@@ -56,9 +54,9 @@ export const getLegInterchangeRisk = (
  * pair, but the first bus holds `interchangeTo`.
  */
 const previousTransitLeg = (
-  legs: InterchangeLeg[],
+  legs: TransferLeg[],
   index: number,
-): InterchangeLeg | undefined => {
+): TransferLeg | undefined => {
   for (let i = index - 1; i >= 0; i--) {
     if (isTransitLeg(legs[i])) return legs[i];
   }
@@ -66,15 +64,15 @@ const previousTransitLeg = (
 };
 
 /**
- * Whether the interchange still guarantees the connection. A guarantee lasts
+ * Whether the interchange still guarantees the transfer. A guarantee lasts
  * `maximumWaitTime` seconds past the connecting service's scheduled departure;
  * absent, it waits indefinitely. Unparseable times keep the guarantee, so bad
  * data suppresses a warning rather than inventing one.
  */
-const interchangeHolds = (
-  alightedFrom: InterchangeLeg,
-  boarding: InterchangeLeg,
-  arriveAt: InterchangeLeg,
+const transferHolds = (
+  alightedFrom: TransferLeg,
+  boarding: TransferLeg,
+  arriveAt: TransferLeg,
 ): boolean => {
   const interchange = alightedFrom.interchangeTo;
   if (interchange?.guaranteed !== true) return false;

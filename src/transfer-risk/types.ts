@@ -1,17 +1,16 @@
-/** How risky an interchange is when there is no time to spare. */
-export const InterchangeRisk = {
+/** How risky a transfer is when there is no time to spare. */
+export const TransferRisk = {
   Uncertain: 'uncertain',
   Unlikely: 'unlikely',
 } as const;
 
-export type InterchangeRisk =
-  (typeof InterchangeRisk)[keyof typeof InterchangeRisk];
+export type TransferRisk = (typeof TransferRisk)[keyof typeof TransferRisk];
 
 /**
- * The fields the interchange rules read. Each product's own leg type satisfies
+ * The fields the transfer rules read. Each product's own leg type satisfies
  * this structurally, so no mapping is needed at the call site.
  */
-export type InterchangeLeg = {
+export type TransferLeg = {
   /** Scheduled departure. The reference point for `maximumWaitTime`. */
   aimedStartTime: string;
   expectedStartTime: string;
@@ -22,7 +21,7 @@ export type InterchangeLeg = {
    */
   serviceJourney?: {id: string} | null;
   /**
-   * Interchange to the next service. Transit legs only, and often not
+   * Entur's interchange to the next service. Transit legs only, and often not
    * populated when a leg is fetched by id — preserve it across a refresh.
    */
   interchangeTo?: {

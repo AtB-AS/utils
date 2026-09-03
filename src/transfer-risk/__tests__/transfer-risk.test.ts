@@ -1,14 +1,12 @@
 import {
-  getInterchangeRisk,
-  getLegInterchangeRisk,
+  getTransferRisk,
+  getLegTransferRisk,
   isTransitLeg,
-  UNLIKELY_INTERCHANGE_LIMIT_IN_SECONDS,
-  type InterchangeLeg,
+  UNLIKELY_TRANSFER_LIMIT_IN_SECONDS,
+  type TransferLeg,
 } from '..';
 
-const transitLeg = (
-  overrides: Partial<InterchangeLeg> = {},
-): InterchangeLeg => ({
+const transitLeg = (overrides: Partial<TransferLeg> = {}): TransferLeg => ({
   aimedStartTime: '2024-01-01T10:00:00.000Z',
   expectedStartTime: '2024-01-01T10:00:00.000Z',
   expectedEndTime: '2024-01-01T10:10:00.000Z',
@@ -16,7 +14,7 @@ const transitLeg = (
   ...overrides,
 });
 
-const footLeg = (overrides: Partial<InterchangeLeg> = {}): InterchangeLeg => ({
+const footLeg = (overrides: Partial<TransferLeg> = {}): TransferLeg => ({
   aimedStartTime: '2024-01-01T10:10:00.000Z',
   expectedStartTime: '2024-01-01T10:10:00.000Z',
   expectedEndTime: '2024-01-01T10:15:00.000Z',
@@ -24,32 +22,32 @@ const footLeg = (overrides: Partial<InterchangeLeg> = {}): InterchangeLeg => ({
   ...overrides,
 });
 
-describe('getInterchangeRisk', () => {
+describe('getTransferRisk', () => {
   it('passes when there is time to spare', () => {
-    expect(getInterchangeRisk(1)).toBeUndefined();
-    expect(getInterchangeRisk(600)).toBeUndefined();
+    expect(getTransferRisk(1)).toBeUndefined();
+    expect(getTransferRisk(600)).toBeUndefined();
   });
 
   it('treats a zero gap as uncertain', () => {
-    expect(getInterchangeRisk(0)).toBe('uncertain');
+    expect(getTransferRisk(0)).toBe('uncertain');
   });
 
   it('is uncertain down to the unlikely limit', () => {
-    expect(getInterchangeRisk(-60)).toBe('uncertain');
-    expect(getInterchangeRisk(UNLIKELY_INTERCHANGE_LIMIT_IN_SECONDS)).toBe(
+    expect(getTransferRisk(-60)).toBe('uncertain');
+    expect(getTransferRisk(UNLIKELY_TRANSFER_LIMIT_IN_SECONDS)).toBe(
       'uncertain',
     );
   });
 
   it('is unlikely past the limit', () => {
-    expect(getInterchangeRisk(UNLIKELY_INTERCHANGE_LIMIT_IN_SECONDS - 1)).toBe(
+    expect(getTransferRisk(UNLIKELY_TRANSFER_LIMIT_IN_SECONDS - 1)).toBe(
       'unlikely',
     );
-    expect(getInterchangeRisk(-600)).toBe('unlikely');
+    expect(getTransferRisk(-600)).toBe('unlikely');
   });
 
   it('passes when the gap is not a finite number', () => {
-    expect(getInterchangeRisk(NaN)).toBeUndefined();
+    expect(getTransferRisk(NaN)).toBeUndefined();
   });
 });
 
@@ -61,13 +59,13 @@ describe('isTransitLeg', () => {
   });
 });
 
-describe('getLegInterchangeRisk', () => {
-  it('catches a missed interchange between two transit legs', () => {
+describe('getLegTransferRisk', () => {
+  it('catches a missed transfer between two transit legs', () => {
     const legs = [
       transitLeg({expectedEndTime: '2024-01-01T10:10:00.000Z'}),
       transitLeg({expectedStartTime: '2024-01-01T10:09:00.000Z'}),
     ];
-    expect(getLegInterchangeRisk(legs, 1)).toBe('uncertain');
+    expect(getLegTransferRisk(legs, 1)).toBe('uncertain');
   });
 
   it('reports unlikely once the gap is past the limit', () => {
@@ -75,7 +73,7 @@ describe('getLegInterchangeRisk', () => {
       transitLeg({expectedEndTime: '2024-01-01T10:10:00.000Z'}),
       transitLeg({expectedStartTime: '2024-01-01T10:05:00.000Z'}),
     ];
-    expect(getLegInterchangeRisk(legs, 1)).toBe('unlikely');
+    expect(getLegTransferRisk(legs, 1)).toBe('unlikely');
   });
 
   it('passes when there is time to spare', () => {
@@ -83,17 +81,15 @@ describe('getLegInterchangeRisk', () => {
       transitLeg({expectedEndTime: '2024-01-01T10:10:00.000Z'}),
       transitLeg({expectedStartTime: '2024-01-01T10:15:00.000Z'}),
     ];
-    expect(getLegInterchangeRisk(legs, 1)).toBeUndefined();
+    expect(getLegTransferRisk(legs, 1)).toBeUndefined();
   });
 
   it('passes on the first leg, which nothing precedes', () => {
-    expect(
-      getLegInterchangeRisk([transitLeg(), transitLeg()], 0),
-    ).toBeUndefined();
+    expect(getLegTransferRisk([transitLeg(), transitLeg()], 0)).toBeUndefined();
   });
 
   it('passes on an index outside the trip', () => {
-    expect(getLegInterchangeRisk([transitLeg()], 5)).toBeUndefined();
+    expect(getLegTransferRisk([transitLeg()], 5)).toBeUndefined();
   });
 
   it('passes on a non-transit leg, so a walk carries no warning', () => {
@@ -101,7 +97,7 @@ describe('getLegInterchangeRisk', () => {
       transitLeg({expectedEndTime: '2024-01-01T10:10:00.000Z'}),
       footLeg({expectedStartTime: '2024-01-01T10:09:00.000Z'}),
     ];
-    expect(getLegInterchangeRisk(legs, 1)).toBeUndefined();
+    expect(getLegTransferRisk(legs, 1)).toBeUndefined();
   });
 
   it('passes when there is no transit leg to have arrived from', () => {
@@ -109,7 +105,7 @@ describe('getLegInterchangeRisk', () => {
       footLeg({expectedEndTime: '2024-01-01T10:10:00.000Z'}),
       transitLeg({expectedStartTime: '2024-01-01T10:09:00.000Z'}),
     ];
-    expect(getLegInterchangeRisk(legs, 1)).toBeUndefined();
+    expect(getLegTransferRisk(legs, 1)).toBeUndefined();
   });
 
   it('measures the gap from the end of an intervening walk', () => {
@@ -121,7 +117,7 @@ describe('getLegInterchangeRisk', () => {
       }),
       transitLeg({expectedStartTime: '2024-01-01T10:11:00.000Z'}),
     ];
-    expect(getLegInterchangeRisk(legs, 2)).toBe('unlikely');
+    expect(getLegTransferRisk(legs, 2)).toBe('unlikely');
   });
 
   it('passes when the gap is unparseable rather than inventing a risk', () => {
@@ -129,7 +125,7 @@ describe('getLegInterchangeRisk', () => {
       transitLeg({expectedEndTime: 'not-a-date'}),
       transitLeg({expectedStartTime: '2024-01-01T10:09:00.000Z'}),
     ];
-    expect(getLegInterchangeRisk(legs, 1)).toBeUndefined();
+    expect(getLegTransferRisk(legs, 1)).toBeUndefined();
   });
 
   describe('guaranteed interchange', () => {
@@ -141,7 +137,7 @@ describe('getLegInterchangeRisk', () => {
         }),
         transitLeg({expectedStartTime: '2024-01-01T10:00:00.000Z'}),
       ];
-      expect(getLegInterchangeRisk(legs, 1)).toBeUndefined();
+      expect(getLegTransferRisk(legs, 1)).toBeUndefined();
     });
 
     it('warns when the interchange is explicitly not guaranteed', () => {
@@ -152,7 +148,7 @@ describe('getLegInterchangeRisk', () => {
         }),
         transitLeg({expectedStartTime: '2024-01-01T10:09:00.000Z'}),
       ];
-      expect(getLegInterchangeRisk(legs, 1)).toBe('uncertain');
+      expect(getLegTransferRisk(legs, 1)).toBe('uncertain');
     });
 
     it('passes on a guaranteed interchange reached through a walk', () => {
@@ -167,7 +163,7 @@ describe('getLegInterchangeRisk', () => {
         }),
         transitLeg({expectedStartTime: '2024-01-01T10:11:00.000Z'}),
       ];
-      expect(getLegInterchangeRisk(legs, 2)).toBeUndefined();
+      expect(getLegTransferRisk(legs, 2)).toBeUndefined();
     });
 
     it('passes when arrival is within the maximum wait time', () => {
@@ -182,7 +178,7 @@ describe('getLegInterchangeRisk', () => {
         }),
       ];
       // Held until 10:08 + 5 min = 10:13, and we arrive at 10:10.
-      expect(getLegInterchangeRisk(legs, 1)).toBeUndefined();
+      expect(getLegTransferRisk(legs, 1)).toBeUndefined();
     });
 
     it('treats arrival exactly at the deadline as caught', () => {
@@ -196,7 +192,7 @@ describe('getLegInterchangeRisk', () => {
           expectedStartTime: '2024-01-01T10:08:00.000Z',
         }),
       ];
-      expect(getLegInterchangeRisk(legs, 1)).toBeUndefined();
+      expect(getLegTransferRisk(legs, 1)).toBeUndefined();
     });
 
     it('warns once arrival is past the maximum wait time', () => {
@@ -211,7 +207,7 @@ describe('getLegInterchangeRisk', () => {
         }),
       ];
       // Held until 10:13, but we do not arrive until 10:20.
-      expect(getLegInterchangeRisk(legs, 1)).toBe('unlikely');
+      expect(getLegTransferRisk(legs, 1)).toBe('unlikely');
     });
 
     it('counts an intervening walk against the maximum wait time', () => {
@@ -230,7 +226,7 @@ describe('getLegInterchangeRisk', () => {
         }),
       ];
       // Held until 10:13, but the walk does not end until 10:15.
-      expect(getLegInterchangeRisk(legs, 2)).toBe('unlikely');
+      expect(getLegTransferRisk(legs, 2)).toBe('unlikely');
     });
 
     it('keeps the guarantee when the deadline is unparseable', () => {
@@ -244,7 +240,7 @@ describe('getLegInterchangeRisk', () => {
           expectedStartTime: '2024-01-01T10:08:00.000Z',
         }),
       ];
-      expect(getLegInterchangeRisk(legs, 1)).toBeUndefined();
+      expect(getLegTransferRisk(legs, 1)).toBeUndefined();
     });
   });
 });
