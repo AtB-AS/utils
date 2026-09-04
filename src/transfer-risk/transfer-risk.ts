@@ -46,6 +46,46 @@ export const getLegTransferRisk = (
 };
 
 /**
+ * Stamps `transferRisk` on each transit leg the trip is at risk of missing.
+ *
+ * The risk sits on the boarding leg rather than the leg before the gap:
+ * clients filter insignificant foot legs out of the display but never transit
+ * legs, so a warning here cannot be filtered away.
+ *
+ * Always overwrites, including with `undefined`. Clients round-trip the whole
+ * trip pattern back to the server, so a leg that fails to refresh arrives
+ * carrying the risk from an earlier response; leaving it in place would keep a
+ * warning on screen after the delay behind it had cleared.
+ */
+export const withTransferRisk = <
+  T extends TransferLeg & {transferRisk?: TransferRisk},
+>(
+  legs: T[],
+): T[] =>
+  legs.map((leg, index) => ({
+    ...leg,
+    transferRisk: getLegTransferRisk(legs, index),
+  }));
+
+/**
+ * The worst transfer risk across a trip, for a trip-level field. Computed from
+ * the legs rather than read off `transferRisk`, so it does not depend on
+ * `withTransferRisk` having run first.
+ *
+ * There is one level today, so the first risky transfer is the worst — add a
+ * severity comparison here if a second level is introduced.
+ */
+export const getTripTransferRisk = (
+  legs: TransferLeg[],
+): TransferRisk | undefined => {
+  for (let index = 0; index < legs.length; index++) {
+    const risk = getLegTransferRisk(legs, index);
+    if (risk) return risk;
+  }
+  return undefined;
+};
+
+/**
  * The transit leg you alight from, which carries the interchange. Walks back
  * past non-transit legs: bus -> walk -> bus is measured on the (walk, bus)
  * pair, but the first bus holds `interchangeTo`.

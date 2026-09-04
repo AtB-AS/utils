@@ -1,11 +1,17 @@
 import {
   getTransferRisk,
   getLegTransferRisk,
+  getTripTransferRisk,
+  withTransferRisk,
   isTransitLeg,
+  TransferRisk,
   type TransferLeg,
 } from '..';
 
-const transitLeg = (overrides: Partial<TransferLeg> = {}): TransferLeg => ({
+/** A leg that can carry a stamped risk, as every real consumer's leg can. */
+type TestLeg = TransferLeg & {transferRisk?: TransferRisk};
+
+const transitLeg = (overrides: Partial<TestLeg> = {}): TestLeg => ({
   aimedStartTime: '2024-01-01T10:00:00.000Z',
   expectedStartTime: '2024-01-01T10:00:00.000Z',
   expectedEndTime: '2024-01-01T10:10:00.000Z',
@@ -13,7 +19,7 @@ const transitLeg = (overrides: Partial<TransferLeg> = {}): TransferLeg => ({
   ...overrides,
 });
 
-const footLeg = (overrides: Partial<TransferLeg> = {}): TransferLeg => ({
+const footLeg = (overrides: Partial<TestLeg> = {}): TestLeg => ({
   aimedStartTime: '2024-01-01T10:10:00.000Z',
   expectedStartTime: '2024-01-01T10:10:00.000Z',
   expectedEndTime: '2024-01-01T10:15:00.000Z',
@@ -233,5 +239,89 @@ describe('getLegTransferRisk', () => {
       ];
       expect(getLegTransferRisk(legs, 1)).toBeUndefined();
     });
+  });
+});
+
+describe('withTransferRisk', () => {
+  it('stamps the leg you might miss, not the one before', () => {
+    const legs = withTransferRisk([
+      transitLeg({expectedEndTime: '2024-01-01T10:10:00.000Z'}),
+      transitLeg({expectedStartTime: '2024-01-01T10:09:00.000Z'}),
+    ]);
+    expect(legs[0].transferRisk).toBeUndefined();
+    expect(legs[1].transferRisk).toBe('uncertain');
+  });
+
+  it('leaves a comfortable transfer unstamped', () => {
+    const legs = withTransferRisk([
+      transitLeg({expectedEndTime: '2024-01-01T10:10:00.000Z'}),
+      transitLeg({expectedStartTime: '2024-01-01T10:15:00.000Z'}),
+    ]);
+    expect(legs.every((leg) => leg.transferRisk === undefined)).toBe(true);
+  });
+
+  it('clears a risk the caller passed back in, once the gap is fine', () => {
+    const legs = withTransferRisk([
+      transitLeg({expectedEndTime: '2024-01-01T10:10:00.000Z'}),
+      transitLeg({
+        expectedStartTime: '2024-01-01T10:15:00.000Z',
+        transferRisk: TransferRisk.Uncertain,
+      }),
+    ]);
+    expect(legs[1].transferRisk).toBeUndefined();
+  });
+
+  it('does not stamp a guaranteed transfer', () => {
+    const legs = withTransferRisk([
+      transitLeg({
+        expectedEndTime: '2024-01-01T10:10:00.000Z',
+        interchangeTo: {guaranteed: true},
+      }),
+      transitLeg({expectedStartTime: '2024-01-01T10:00:00.000Z'}),
+    ]);
+    expect(legs[1].transferRisk).toBeUndefined();
+  });
+});
+
+describe('getTripTransferRisk', () => {
+  it('passes when every transfer has time to spare', () => {
+    const legs = [
+      transitLeg({expectedEndTime: '2024-01-01T10:10:00.000Z'}),
+      transitLeg({expectedStartTime: '2024-01-01T10:15:00.000Z'}),
+    ];
+    expect(getTripTransferRisk(legs)).toBeUndefined();
+  });
+
+  it('reports a risk from anywhere in the trip', () => {
+    const legs = [
+      transitLeg({expectedEndTime: '2024-01-01T10:10:00.000Z'}),
+      transitLeg({
+        expectedStartTime: '2024-01-01T10:15:00.000Z',
+        expectedEndTime: '2024-01-01T10:25:00.000Z',
+      }),
+      transitLeg({expectedStartTime: '2024-01-01T10:24:00.000Z'}),
+    ];
+    expect(getTripTransferRisk(legs)).toBe('uncertain');
+  });
+
+  it('ignores a guaranteed transfer when looking across the trip', () => {
+    const legs = [
+      transitLeg({
+        expectedEndTime: '2024-01-01T10:10:00.000Z',
+        interchangeTo: {guaranteed: true},
+      }),
+      transitLeg({expectedStartTime: '2024-01-01T10:00:00.000Z'}),
+    ];
+    expect(getTripTransferRisk(legs)).toBeUndefined();
+  });
+
+  it('does not need the legs to be stamped first', () => {
+    const legs = [
+      transitLeg({expectedEndTime: '2024-01-01T10:10:00.000Z'}),
+      transitLeg({expectedStartTime: '2024-01-01T10:09:00.000Z'}),
+    ];
+    expect(getTripTransferRisk(legs)).toBe(
+      getTripTransferRisk(withTransferRisk(legs)),
+    );
   });
 });
