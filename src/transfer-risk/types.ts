@@ -1,7 +1,10 @@
-/** How risky a transfer is when there is no time to spare. */
+/**
+ * Transfer risk classification for transfers with no slack (0s) or already
+ * missed (negative gaps). Kept as a string (vs boolean) because additional
+ * levels (e.g. `shortWait`) may be added later.
+ */
 export const TransferRisk = {
   Uncertain: 'uncertain',
-  Unlikely: 'unlikely',
 } as const;
 
 export type TransferRisk = (typeof TransferRisk)[keyof typeof TransferRisk];

@@ -1,9 +1,10 @@
 export {
   getTransferRisk,
   getLegTransferRisk,
+  getTripTransferRisk,
+  withTransferRisk,
   isTransitLeg,
-  UNLIKELY_TRANSFER_LIMIT_IN_SECONDS,
 } from './transfer-risk';
-// Exports both the value (TransferRisk.Unlikely) and the type.
+// Exports both the value (TransferRisk.Uncertain) and the type.
 export {TransferRisk} from './types';
 export type {TransferLeg} from './types';

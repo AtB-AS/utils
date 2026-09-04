@@ -1,20 +1,17 @@
 import type {TransferLeg} from './types';
 import {TransferRisk} from './types';
 
-/** Below this, the transfer is not one to count on. */
-export const UNLIKELY_TRANSFER_LIMIT_IN_SECONDS = -120;
-
 /**
- * Classifies the gap between arriving and the next departure. Zero counts as
- * uncertain; a non-finite gap yields undefined.
+ * Classifies the gap between arriving and the next departure: any gap that is
+ * not positive is uncertain, however large. Zero counts, because arriving
+ * exactly as the service leaves is not a transfer you can rely on. A
+ * non-finite gap yields undefined.
  */
 export const getTransferRisk = (seconds: number): TransferRisk | undefined => {
   if (!Number.isFinite(seconds) || seconds > 0) {
     return undefined;
   }
-  return seconds < UNLIKELY_TRANSFER_LIMIT_IN_SECONDS
-    ? TransferRisk.Unlikely
-    : TransferRisk.Uncertain;
+  return TransferRisk.Uncertain;
 };
 
 /** Whether a leg is scheduled transit rather than walking, cycling and such. */
@@ -46,6 +43,46 @@ export const getLegTransferRisk = (
   return getTransferRisk(
     secondsBetween(arriveAt.expectedEndTime, boarding.expectedStartTime),
   );
+};
+
+/**
+ * Stamps `transferRisk` on each transit leg the trip is at risk of missing.
+ *
+ * The risk sits on the boarding leg rather than the leg before the gap:
+ * clients filter insignificant foot legs out of the display but never transit
+ * legs, so a warning here cannot be filtered away.
+ *
+ * Always overwrites, including with `undefined`. Clients round-trip the whole
+ * trip pattern back to the server, so a leg that fails to refresh arrives
+ * carrying the risk from an earlier response; leaving it in place would keep a
+ * warning on screen after the delay behind it had cleared.
+ */
+export const withTransferRisk = <
+  T extends TransferLeg & {transferRisk?: TransferRisk},
+>(
+  legs: T[],
+): T[] =>
+  legs.map((leg, index) => ({
+    ...leg,
+    transferRisk: getLegTransferRisk(legs, index),
+  }));
+
+/**
+ * The worst transfer risk across a trip, for a trip-level field. Computed from
+ * the legs rather than read off `transferRisk`, so it does not depend on
+ * `withTransferRisk` having run first.
+ *
+ * There is one level today, so the first risky transfer is the worst — add a
+ * severity comparison here if a second level is introduced.
+ */
+export const getTripTransferRisk = (
+  legs: TransferLeg[],
+): TransferRisk | undefined => {
+  for (let index = 0; index < legs.length; index++) {
+    const risk = getLegTransferRisk(legs, index);
+    if (risk) return risk;
+  }
+  return undefined;
 };
 
 /**
