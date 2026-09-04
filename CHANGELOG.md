@@ -1,5 +1,16 @@
 # Changelog
 
+## [8.0.0](https://github.com/AtB-AS/utils/compare/v7.1.0...v8.0.0) (2026-09-04)
+
+
+### ⚠ BREAKING CHANGES
+
+* only use `uncertain` transfer risk ([#64](https://github.com/AtB-AS/utils/issues/64))
+
+### Features
+
+* only use `uncertain` transfer risk ([#64](https://github.com/AtB-AS/utils/issues/64)) ([fbd1904](https://github.com/AtB-AS/utils/commit/fbd19045376e42aa359573f53da5b3f9ffae02f6))
+
 ## [7.1.0](https://github.com/AtB-AS/utils/compare/v7.0.0...v7.1.0) (2026-09-03)
 
 
