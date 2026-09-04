@@ -1,6 +1,7 @@
 /**
- * A transfer with no time to spare. One level today; kept as a string rather
- * than a boolean because `shortWait` will be added soon.
+ * Transfer risk classification for transfers with no slack (0s) or already
+ * missed (negative gaps). Kept as a string (vs boolean) because additional
+ * levels (e.g. `shortWait`) may be added later.
  */
 export const TransferRisk = {
   Uncertain: 'uncertain',
