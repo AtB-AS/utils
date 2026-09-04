@@ -2,7 +2,6 @@ import {
   getTransferRisk,
   getLegTransferRisk,
   isTransitLeg,
-  UNLIKELY_TRANSFER_LIMIT_IN_SECONDS,
   type TransferLeg,
 } from '..';
 
@@ -32,18 +31,10 @@ describe('getTransferRisk', () => {
     expect(getTransferRisk(0)).toBe('uncertain');
   });
 
-  it('is uncertain down to the unlikely limit', () => {
+  it('is uncertain at any negative gap, however large', () => {
+    expect(getTransferRisk(-1)).toBe('uncertain');
     expect(getTransferRisk(-60)).toBe('uncertain');
-    expect(getTransferRisk(UNLIKELY_TRANSFER_LIMIT_IN_SECONDS)).toBe(
-      'uncertain',
-    );
-  });
-
-  it('is unlikely past the limit', () => {
-    expect(getTransferRisk(UNLIKELY_TRANSFER_LIMIT_IN_SECONDS - 1)).toBe(
-      'unlikely',
-    );
-    expect(getTransferRisk(-600)).toBe('unlikely');
+    expect(getTransferRisk(-600)).toBe('uncertain');
   });
 
   it('passes when the gap is not a finite number', () => {
@@ -68,12 +59,12 @@ describe('getLegTransferRisk', () => {
     expect(getLegTransferRisk(legs, 1)).toBe('uncertain');
   });
 
-  it('reports unlikely once the gap is past the limit', () => {
+  it('stays uncertain on a badly missed transfer', () => {
     const legs = [
       transitLeg({expectedEndTime: '2024-01-01T10:10:00.000Z'}),
       transitLeg({expectedStartTime: '2024-01-01T10:05:00.000Z'}),
     ];
-    expect(getLegTransferRisk(legs, 1)).toBe('unlikely');
+    expect(getLegTransferRisk(legs, 1)).toBe('uncertain');
   });
 
   it('passes when there is time to spare', () => {
@@ -117,7 +108,7 @@ describe('getLegTransferRisk', () => {
       }),
       transitLeg({expectedStartTime: '2024-01-01T10:11:00.000Z'}),
     ];
-    expect(getLegTransferRisk(legs, 2)).toBe('unlikely');
+    expect(getLegTransferRisk(legs, 2)).toBe('uncertain');
   });
 
   it('passes when the gap is unparseable rather than inventing a risk', () => {
@@ -207,7 +198,7 @@ describe('getLegTransferRisk', () => {
         }),
       ];
       // Held until 10:13, but we do not arrive until 10:20.
-      expect(getLegTransferRisk(legs, 1)).toBe('unlikely');
+      expect(getLegTransferRisk(legs, 1)).toBe('uncertain');
     });
 
     it('counts an intervening walk against the maximum wait time', () => {
@@ -226,7 +217,7 @@ describe('getLegTransferRisk', () => {
         }),
       ];
       // Held until 10:13, but the walk does not end until 10:15.
-      expect(getLegTransferRisk(legs, 2)).toBe('unlikely');
+      expect(getLegTransferRisk(legs, 2)).toBe('uncertain');
     });
 
     it('keeps the guarantee when the deadline is unparseable', () => {

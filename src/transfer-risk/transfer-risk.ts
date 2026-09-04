@@ -1,20 +1,17 @@
 import type {TransferLeg} from './types';
 import {TransferRisk} from './types';
 
-/** Below this, the transfer is not one to count on. */
-export const UNLIKELY_TRANSFER_LIMIT_IN_SECONDS = -120;
-
 /**
- * Classifies the gap between arriving and the next departure. Zero counts as
- * uncertain; a non-finite gap yields undefined.
+ * Classifies the gap between arriving and the next departure: any gap that is
+ * not positive is uncertain, however large. Zero counts, because arriving
+ * exactly as the service leaves is not a transfer you can rely on. A
+ * non-finite gap yields undefined.
  */
 export const getTransferRisk = (seconds: number): TransferRisk | undefined => {
   if (!Number.isFinite(seconds) || seconds > 0) {
     return undefined;
   }
-  return seconds < UNLIKELY_TRANSFER_LIMIT_IN_SECONDS
-    ? TransferRisk.Unlikely
-    : TransferRisk.Uncertain;
+  return TransferRisk.Uncertain;
 };
 
 /** Whether a leg is scheduled transit rather than walking, cycling and such. */

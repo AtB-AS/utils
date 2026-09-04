@@ -1,7 +1,9 @@
-/** How risky a transfer is when there is no time to spare. */
+/**
+ * A transfer with no time to spare. One level today; kept as a string rather
+ * than a boolean because `shortWait` will be added soon.
+ */
 export const TransferRisk = {
   Uncertain: 'uncertain',
-  Unlikely: 'unlikely',
 } as const;
 
 export type TransferRisk = (typeof TransferRisk)[keyof typeof TransferRisk];
