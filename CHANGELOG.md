@@ -1,5 +1,12 @@
 # Changelog
 
+## [8.0.1](https://github.com/AtB-AS/utils/compare/v8.0.0...v8.0.1) (2026-09-07)
+
+
+### Bug Fixes
+
+* only negative transfer time as an "uncertain transfer" ([#66](https://github.com/AtB-AS/utils/issues/66)) ([0a48ebf](https://github.com/AtB-AS/utils/commit/0a48ebf44f74a052c7b1224edf03e0d7c2c79df4))
+
 ## [8.0.0](https://github.com/AtB-AS/utils/compare/v7.1.0...v8.0.0) (2026-09-04)
 
 
