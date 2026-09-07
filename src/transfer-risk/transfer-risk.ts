@@ -3,8 +3,8 @@ import {TransferRisk} from './types';
 
 /**
  * Classifies the gap between arriving and the next departure: a negative gap is
- * uncertain, however small. Zero seconds transfer is considered valid by Entur and is
- * returned by the trip planner, so it is considered not a "risky" transfer
+ * uncertain, however small. A zero-second transfer is treated as feasible by Entur and may be
+ * returned by the trip planner, so it is not treated as a risky transfer. Non-finite values yield undefined.
  */
 export const getTransferRisk = (seconds: number): TransferRisk | undefined => {
   if (!Number.isFinite(seconds) || seconds >= 0) {
