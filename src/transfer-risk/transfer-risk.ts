@@ -2,13 +2,12 @@ import type {TransferLeg} from './types';
 import {TransferRisk} from './types';
 
 /**
- * Classifies the gap between arriving and the next departure: any gap that is
- * not positive is uncertain, however large. Zero counts, because arriving
- * exactly as the service leaves is not a transfer you can rely on. A
- * non-finite gap yields undefined.
+ * Classifies the gap between arriving and the next departure: a negative gap is
+ * uncertain, however small. Zero seconds transfer is considered valid by Entur and is
+ * returned by the trip planner, so it is considered not a "risky" transfer
  */
 export const getTransferRisk = (seconds: number): TransferRisk | undefined => {
-  if (!Number.isFinite(seconds) || seconds > 0) {
+  if (!Number.isFinite(seconds) || seconds >= 0) {
     return undefined;
   }
   return TransferRisk.Uncertain;
@@ -24,9 +23,9 @@ export const isTransitLeg = (leg: TransferLeg): boolean =>
  * before, so an intervening walk counts.
  *
  * Undefined when the leg is not transit, when no transit leg precedes it, or
- * when the transfer still holds. The transit check also keeps the warning off
- * the leg leading *into* a walk: those gaps are commonly re-anchored to exactly
- * zero, which would otherwise fire on every transfer.
+ * when the transfer still holds. The transit check keeps the warning off the leg
+ * leading *into* a walk, where it would sit on a leg clients are free to filter
+ * out of the display.
  */
 export const getLegTransferRisk = (
   legs: TransferLeg[],

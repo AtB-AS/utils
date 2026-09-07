@@ -1,7 +1,6 @@
 /**
- * Transfer risk classification for transfers with no slack (0s) or already
- * missed (negative gaps). Kept as a string (vs boolean) because additional
- * levels (e.g. `shortWait`) may be added later.
+ * Transfer risk classification for transfers. Kept as a string (vs boolean)
+ * because additional level(s) will be added later (`shortWait` will be added soon).
  */
 export const TransferRisk = {
   Uncertain: 'uncertain',

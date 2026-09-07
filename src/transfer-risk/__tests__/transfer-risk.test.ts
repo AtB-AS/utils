@@ -33,8 +33,8 @@ describe('getTransferRisk', () => {
     expect(getTransferRisk(600)).toBeUndefined();
   });
 
-  it('treats a zero gap as uncertain', () => {
-    expect(getTransferRisk(0)).toBe('uncertain');
+  it('passes on a zero gap, which the planner treats as feasible', () => {
+    expect(getTransferRisk(0)).toBeUndefined();
   });
 
   it('is uncertain at any negative gap, however large', () => {
@@ -77,6 +77,14 @@ describe('getLegTransferRisk', () => {
     const legs = [
       transitLeg({expectedEndTime: '2024-01-01T10:10:00.000Z'}),
       transitLeg({expectedStartTime: '2024-01-01T10:15:00.000Z'}),
+    ];
+    expect(getLegTransferRisk(legs, 1)).toBeUndefined();
+  });
+
+  it('passes when the connection leaves the instant you arrive', () => {
+    const legs = [
+      transitLeg({expectedEndTime: '2024-01-01T10:10:00.000Z'}),
+      transitLeg({expectedStartTime: '2024-01-01T10:10:00.000Z'}),
     ];
     expect(getLegTransferRisk(legs, 1)).toBeUndefined();
   });
