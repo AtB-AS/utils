@@ -234,7 +234,7 @@ describe('getLegTransferRisk', () => {
       expect(getLegTransferRisk(legs, 1)).toBe('uncertain');
     });
 
-    it('counts an intervening walk against the maximum wait time', () => {
+    it('does not count an intervening walk against the maximum wait time', () => {
       const legs = [
         transitLeg({
           expectedEndTime: '2024-01-01T10:10:00.000Z',
@@ -249,7 +249,45 @@ describe('getLegTransferRisk', () => {
           expectedStartTime: '2024-01-01T10:11:00.000Z',
         }),
       ];
-      // Held until 10:13, but the walk does not end until 10:15.
+      // Held until 10:13 and the first service arrives at 10:10. The walk
+      // ending at 10:15 is covered by the guarantee.
+      expect(getLegTransferRisk(legs, 2)).toBeUndefined();
+    });
+
+    it('passes a zero maximum wait time when only the walk ends late', () => {
+      const legs = [
+        transitLeg({
+          expectedEndTime: '2024-01-01T10:10:00.000Z',
+          interchangeTo: {guaranteed: true, maximumWaitTime: 0},
+        }),
+        footLeg({
+          expectedStartTime: '2024-01-01T10:10:00.000Z',
+          expectedEndTime: '2024-01-01T10:10:12.000Z',
+        }),
+        transitLeg({
+          aimedStartTime: '2024-01-01T10:10:00.000Z',
+          expectedStartTime: '2024-01-01T10:10:00.000Z',
+        }),
+      ];
+      expect(getLegTransferRisk(legs, 2)).toBeUndefined();
+    });
+
+    it('warns through a walk once the first service is past the maximum wait time', () => {
+      const legs = [
+        transitLeg({
+          expectedEndTime: '2024-01-01T10:14:00.000Z',
+          interchangeTo: {guaranteed: true, maximumWaitTime: 120},
+        }),
+        footLeg({
+          expectedStartTime: '2024-01-01T10:14:00.000Z',
+          expectedEndTime: '2024-01-01T10:15:00.000Z',
+        }),
+        transitLeg({
+          aimedStartTime: '2024-01-01T10:11:00.000Z',
+          expectedStartTime: '2024-01-01T10:11:00.000Z',
+        }),
+      ];
+      // Held until 10:13, but the first service does not arrive until 10:14.
       expect(getLegTransferRisk(legs, 2)).toBe('uncertain');
     });
 
