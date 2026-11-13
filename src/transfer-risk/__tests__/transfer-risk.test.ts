@@ -145,6 +145,25 @@ describe('getLegTransferRisk', () => {
       expect(getLegTransferRisk(legs, 1)).toBeUndefined();
     });
 
+    it('treats a negative maximum wait time as no stated wait limit', () => {
+      const legs = [
+        transitLeg({
+          expectedEndTime: '2024-01-01T10:10:00.000Z',
+          interchangeTo: {guaranteed: true, maximumWaitTime: -1},
+        }),
+        footLeg({
+          expectedStartTime: '2024-01-01T10:10:00.000Z',
+          expectedEndTime: '2024-01-01T10:10:12.000Z',
+        }),
+        transitLeg({
+          aimedStartTime: '2024-01-01T10:10:00.000Z',
+          expectedStartTime: '2024-01-01T10:10:00.000Z',
+        }),
+      ];
+      // Entur's "not set" sentinel, not a deadline one second before departure.
+      expect(getLegTransferRisk(legs, 2)).toBeUndefined();
+    });
+
     it('warns when the interchange is explicitly not guaranteed', () => {
       const legs = [
         transitLeg({

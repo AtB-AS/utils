@@ -102,8 +102,9 @@ const previousTransitLeg = (
 /**
  * Whether the interchange still guarantees the transfer. A guarantee lasts
  * `maximumWaitTime` seconds past the connecting service's scheduled departure;
- * absent, it waits indefinitely. Unparseable times keep the guarantee, so bad
- * data suppresses a warning rather than inventing one.
+ * absent, it waits indefinitely. Entur sends `-1` rather than null when no
+ * limit is set, so a negative value counts as absent. Unparseable times keep
+ * the guarantee, so bad data suppresses a warning rather than inventing one.
  */
 const transferHolds = (
   alightedFrom: TransferLeg,
@@ -112,7 +113,9 @@ const transferHolds = (
 ): boolean => {
   const interchange = alightedFrom.interchangeTo;
   if (interchange?.guaranteed !== true) return false;
-  if (interchange.maximumWaitTime == null) return true;
+  if (interchange.maximumWaitTime == null || interchange.maximumWaitTime < 0) {
+    return true;
+  }
 
   const deadline =
     toEpochMs(boarding.aimedStartTime) + interchange.maximumWaitTime * 1000;
