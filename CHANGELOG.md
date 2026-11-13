@@ -1,5 +1,12 @@
 # Changelog
 
+## [8.0.2](https://github.com/AtB-AS/utils/compare/v8.0.1...v8.0.2) (2026-11-13)
+
+
+### Bug Fixes
+
+* handle unset maximumWaitTime and walk time on guaranteed interchanges ([#68](https://github.com/AtB-AS/utils/issues/68)) ([b615ca2](https://github.com/AtB-AS/utils/commit/b615ca2bedc915c2074c032be30e98fa5236f468))
+
 ## [8.0.1](https://github.com/AtB-AS/utils/compare/v8.0.0...v8.0.1) (2026-09-07)
 
 
